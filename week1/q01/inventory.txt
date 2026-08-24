@@ -1,0 +1,3 @@
+work/25020007176/input/docs/.secret.txt 7
+work/25020007176/input/docs/notes one.txt 11
+work/25020007176/input/tmp/empty.txt 0
