@@ -1,0 +1,304 @@
+% ============================================================================
+%  系统开发工具基础 · 实验报告模板
+% ----------------------------------------------------------------------------
+%  设计依据：课程《系统开发工具基础》（周小伟，计算机科学与技术学院）
+%  实验报告须包含：
+%     (1) 课上给助教检查的内容和结果
+%     (2) 课后练习内容和结果（每次课 >10 个实例）
+%     (3) 解题感悟等
+%  另须将 GitHub/Gitee 仓库链接与 commit 记录截图写入实验报告。
+%
+%  编译方式（推荐，XeLaTeX + shell-escape 以启用 minted 代码高亮）：
+%     latexmk -xelatex -shell-escape -halt-on-error 实验报告模板.tex
+%  或单次编译：
+%     xelatex -shell-escape -interaction=nonstopmode 实验报告模板.tex
+%
+%  使用说明：
+%     1. 在下方「基本信息」处填写姓名、学号、周次、日期。
+%     2. 在「一、课上实验检查」中，为每道题新建一个 experiment 环境。
+%     3. 在「二、课后练习」中，用 exercise 环境逐条记录练习内容与结果。
+%     4. 在「三、解题感悟」中总结本讲收获与思考。
+%     5. 在「四、版本控制与提交记录」中填写仓库链接并插入 commit 截图。
+% ============================================================================
+
+\documentclass[UTF8, zihao=-4]{ctexart}
+
+% ------------------------------- 基本信息 ---------------------------------
+% 每次写报告只需修改这里
+\newcommand{\university}{中国海洋大学}
+\newcommand{\college}{计算机科学与技术学院}
+\newcommand{\coursename}{系统开发工具基础}
+\newcommand{\teacher}{周小伟}
+\newcommand{\studentname}{姓名}
+\newcommand{\studentid}{学号}
+\newcommand{\reportweek}{第~1~周}
+\newcommand{\reportdate}{2026 年 8 月 24 日}
+
+% ------------------------------- 宏包加载 ---------------------------------
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}                 % 提供 [H] 图片排版
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=cprimary, urlcolor=csecondary, citecolor=csecondary]{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}                % 代码高亮（需 -shell-escape）
+\usepackage{enumitem}
+
+% ------------------------------- 颜色定义 ---------------------------------
+\definecolor{cprimary}{RGB}{15, 76, 129}       % 主色：深蓝
+\definecolor{csecondary}{RGB}{46, 134, 193}    % 辅色：亮蓝
+\definecolor{caccent}{RGB}{230, 126, 34}       % 强调：橙
+\definecolor{clight}{RGB}{240, 246, 251}       % 浅蓝底
+\definecolor{codebg}{RGB}{248, 250, 252}       % 代码块底色
+\definecolor{cgray}{RGB}{90, 90, 90}           % 灰色文字
+
+% ------------------------------- 字体（可选）-------------------------------
+% 如需自定义中文字体可取消注释，例如：
+% \setCJKmainfont[AutoFakeBold=true]{SimSun}
+% \setCJKsansfont{Microsoft YaHei}
+
+% ------------------------------- 代码块样式 -------------------------------
+\usemintedstyle{vs}
+\setminted{
+  breaklines=true,
+  fontsize=\small,
+  bgcolor=codebg,
+  frame=single,
+  rulecolor=csecondary!35,
+  framesep=4pt,
+  autogobble=true,
+  baselinestretch=1.1,
+}
+
+% ------------------------------- 页眉页脚 ---------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{cprimary}{\coursename}}
+\fancyhead[R]{\small\textcolor{cprimary}{\reportweek \,实验报告}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cprimary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ------------------------------- 自定义命令 -------------------------------
+% 报告封面标题
+\newcommand{\makereporttitle}{%
+  \begin{center}
+    {\small\color{cgray}\university\ · \college\par}
+    \vspace{0.8em}
+    {\Huge\bfseries\color{cprimary}\coursename\par}
+    \vspace{0.3em}
+    {\Large\bfseries 实\quad 验\quad 报\quad 告\par}
+    \vspace{0.6em}
+    {\large\reportweek\par}
+    \vspace{0.8em}
+    {\color{cprimary}\rule{0.7\textwidth}{1.2pt}\par}
+    \vspace{1.2em}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabular}{>{\bfseries}r@{\hspace{1.5em}}l}
+      姓\quad 名 & \studentname \\
+      学\quad 号 & \studentid \\
+      授课教师 & \teacher \\
+      实验日期 & \reportdate \\
+    \end{tabular}
+  \end{center}
+  \vspace{1em}
+}
+
+% 内容小标题（实验内容 / 关键命令 / 实验结果 等）
+\newcommand{\contenthead}[1]{%
+  \medskip\noindent\textcolor{cprimary}{\bfseries #1}\par\smallskip
+}
+
+% 截图命令：\screenshot[宽度]{图片路径}{图注}
+\newcommand{\screenshot}[3][0.85\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}
+}
+
+% GitHub/Gitee 仓库链接
+\newcommand{\gitlink}[1]{\url{#1}}
+
+% 空栏占位（提示待填写）
+\newcommand{\todo}[1]{\textcolor{caccent}{\emph{（待填写：#1）}}}
+
+% ------------------------------- 实验环境 ---------------------------------
+% 课上实验：\begin{experiment}{题号}{主题} ... \end{experiment}
+\newtcolorbox{experiment}[2]{%
+  enhanced,
+  breakable,
+  colback=white,
+  colframe=cprimary,
+  colbacktitle=cprimary,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={课上实验\quad#1\quad——\quad#2},
+  attach title to upper={\par},
+  before title={\smallskip},
+  after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% 课后练习：\begin{exercise}{练习编号/名称} ... \end{exercise}
+\newtcolorbox{exercise}[1]{%
+  enhanced,
+  breakable,
+  colback=clight,
+  colframe=csecondary,
+  colbacktitle=csecondary,
+  coltitle=white,
+  fonttitle=\bfseries,
+  title={课后练习\quad#1},
+  attach title to upper={\par},
+  before title={\smallskip},
+  after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% ============================================================================
+%                                正文
+% ============================================================================
+\begin{document}
+
+\makereporttitle
+
+% ---------------------------- 一、课上实验检查 ------------------------------
+\section*{一、课上实验检查}
+
+本部分记录每次课上完成并给助教检查的四道题目，包括\textbf{实验内容}、
+\textbf{关键命令/代码}与\textbf{实验结果}（附截图）。
+
+\begin{experiment}{第 1 题}{含空格文件名的批量整理（Shell 基础与文件系统）}
+  \contenthead{实验内容}
+  在 \texttt{q01} 中完全使用命令行创建含空格与隐藏文件的目录结构，长格式列出
+  \texttt{input} 下全部项目，并将所有 \texttt{.txt} 文件复制到
+  \texttt{work/<学号>/}，随后设置权限并生成清单。
+
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    mkdir -p input/docs input/tmp
+    printf 'alpha\nbeta\n' > 'input/docs/notes one.txt'
+    printf 'hidden\n' > input/docs/.secret.txt
+    touch input/tmp/empty.txt
+    printf 'log line 1\nlog line 2\n' > input/run.log
+    ls -la input
+    # 复制并保留相对结构（注意文件名中的空格）
+    cp --parents input/**/*.txt work/<学号>/ 2>/dev/null || find input -name '*.txt' -exec ...
+  \end{minted}
+
+  \contenthead{实验结果}
+  \todo{粘贴终端运行结果截图与 \texttt{inventory.txt} 内容}
+\end{experiment}
+
+\begin{experiment}{第 2 题}{随机访问日志统计（Shell 管道与文本处理）}
+  \contenthead{实验内容}
+  编写 \texttt{analyze.sh} 统计 HTTP 5xx 次数最多的前 2 个 \texttt{path} 及平均
+  \texttt{latency\_ms}。
+
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    #!/usr/bin/env bash
+    [ -f "$1" ] || { echo "error: no such file: $1" >&2; exit 1; }
+    tail -n +2 "$1" | awk -F, '$4 ~ /^5[0-9][0-9]$/ {c[$3]++} END {for (p in c) print c[p], p}' \
+      | sort -k1,1nr -k2,2 | head -2
+    tail -n +2 "$1" | awk -F, '{s+=$5; n++} END {printf "%.2f\n", s/n}'
+  \end{minted}
+
+  \contenthead{实验结果}
+  \todo{分别对 access.csv 与不存在的文件运行脚本，粘贴输出}
+\end{experiment}
+
+\begin{experiment}{第 3 题}{制造、解决并解释一次合并冲突（Version Control and Git）}
+  \contenthead{实验内容}
+  从零创建 Git 仓库，在 \texttt{main} 与两个特性分支上修改 \texttt{config.txt}，
+  合并时解决冲突并保留指定内容。
+
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    git init
+    echo 'mode=normal' > config.txt && git add . && git commit -m 'init'
+    git switch -c feature-a && echo 'mode=safe' > config.txt && git commit -am 'a'
+    git switch main && git switch -c feature-b && echo 'mode=fast' > config.txt && git commit -am 'b'
+    git switch main && git merge feature-a && git merge feature-b
+    # 解决冲突：保留 mode=safe 并追加 note=reviewed
+    git log --all --graph --decorate --oneline
+  \end{minted}
+
+  \contenthead{实验结果}
+  \todo{粘贴冲突标记、解决后的 config.txt 与 git log 图}
+\end{experiment}
+
+\begin{experiment}{第 4 题}{修复并构建一页技术说明（LaTeX 文档编辑）}
+  \contenthead{实验内容}
+  补全 \texttt{report.tex}：加入带编号与 label 的公式、2×2 表格，并在正文中交叉引用。
+
+  \contenthead{关键命令}
+  \begin{minted}{latex}
+    \begin{equation}\label{eq:sum}
+      S = \sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+    \end{equation}
+    由式~\eqref{eq:sum} 可知…… 结果见表~\ref{tab:data}。
+  \end{minted}
+
+  \contenthead{实验结果}
+  \todo{粘贴生成的 report.pdf 截图，确认交叉引用无 “??”}
+\end{experiment}
+
+% ------------------------------ 二、课后练习 -------------------------------
+\section*{二、课后练习}
+
+每次课后完成 \textbf{10 个以上}实例，逐条记录\textbf{练习内容}与\textbf{结果}。
+
+\begin{exercise}{1 · Git 基础命令}
+  \contenthead{练习内容}
+  练习 \texttt{git init / add / commit / log / diff / status} 等命令。
+
+  \contenthead{结果}
+  \todo{命令输出或小结}
+\end{exercise}
+
+\begin{exercise}{2 · Shell 常用命令}
+  \contenthead{练习内容}
+  练习 \texttt{ls / find / grep / awk / sed / chmod} 等命令。
+
+  \contenthead{结果}
+  \todo{命令输出或小结}
+\end{exercise}
+
+% 其余实例可复制上面的 exercise 环境继续添加（编号 3、4、…）
+
+% ------------------------------ 三、解题感悟 -------------------------------
+\section*{三、解题感悟}
+
+\contenthead{本讲收获}
+\todo{总结本讲学到的知识点，例如：管道与重定向、Git 分支与冲突解决、
+LaTeX 交叉引用等。}
+
+\contenthead{遇到的问题与解决}
+\todo{记录遇到的困难、排查过程与最终解决方式。}
+
+\contenthead{对课程的建议}
+\todo{可选。}
+
+% -------------------------- 四、版本控制与提交记录 --------------------------
+\section*{四、版本控制与提交记录}
+
+\contenthead{仓库链接}
+GitHub/Gitee 仓库地址：\gitlink{https://github.com/yourname/your-repo}
+（将 \texttt{yourname/your-repo} 替换为自己的用户名与仓库名）
+
+\contenthead{提交记录截图}
+\todo{插入 GitHub/Gitee 的 commit 记录截图，体现多次提交、非单次全量提交}
+\begin{center}
+  \fbox{\parbox{0.7\textwidth}{\centering\color{cgray}【在此插入 commit 记录截图】\par}}
+\end{center}
+
+\end{document}
