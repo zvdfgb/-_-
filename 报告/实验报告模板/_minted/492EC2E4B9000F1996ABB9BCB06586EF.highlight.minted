@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+git\PYG{+w}{ }init
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}mode=normal\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }config.txt\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }add\PYG{+w}{ }.\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }commit\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}init\PYGZsq{}}
+git\PYG{+w}{ }switch\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }feature\PYGZhy{}a\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}mode=safe\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }config.txt\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }commit\PYG{+w}{ }\PYGZhy{}am\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}a\PYGZsq{}}
+git\PYG{+w}{ }switch\PYG{+w}{ }main\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }switch\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }feature\PYGZhy{}b\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}mode=fast\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }config.txt\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }commit\PYG{+w}{ }\PYGZhy{}am\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}b\PYGZsq{}}
+git\PYG{+w}{ }switch\PYG{+w}{ }main\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }merge\PYG{+w}{ }feature\PYGZhy{}a\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }git\PYG{+w}{ }merge\PYG{+w}{ }feature\PYGZhy{}b
+\PYG{c+c1}{\PYGZsh{} 解决冲突：保留 mode=safe 并追加 note=reviewed}
+git\PYG{+w}{ }log\PYG{+w}{ }\PYGZhy{}\PYGZhy{}all\PYG{+w}{ }\PYGZhy{}\PYGZhy{}graph\PYG{+w}{ }\PYGZhy{}\PYGZhy{}decorate\PYG{+w}{ }\PYGZhy{}\PYGZhy{}oneline
+\end{MintedVerbatim}

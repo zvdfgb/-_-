@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+mkdir\PYG{+w}{ }\PYGZhy{}p\PYG{+w}{ }input/docs\PYG{+w}{ }input/tmp
+\PYG{n+nb}{printf}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZbs{}nbeta\PYGZbs{}n\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}input/docs/notes one.txt\PYGZsq{}}
+\PYG{n+nb}{printf}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}hidden\PYGZbs{}n\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }input/docs/.secret.txt
+touch\PYG{+w}{ }input/tmp/empty.txt
+\PYG{n+nb}{printf}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}log line 1\PYGZbs{}nlog line 2\PYGZbs{}n\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }input/run.log
+ls\PYG{+w}{ }\PYGZhy{}la\PYG{+w}{ }input
+\PYG{c+c1}{\PYGZsh{} 复制并保留相对结构（注意文件名中的空格）}
+cp\PYG{+w}{ }\PYGZhy{}\PYGZhy{}parents\PYG{+w}{ }input/**/*.txt\PYG{+w}{ }work/\PYGZlt{}学号\PYGZgt{}/\PYG{+w}{ }\PYG{l+m}{2}\PYGZgt{}/dev/null\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }find\PYG{+w}{ }input\PYG{+w}{ }\PYGZhy{}name\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}*.txt\PYGZsq{}}\PYG{+w}{ }\PYGZhy{}exec\PYG{+w}{ }...
+\end{MintedVerbatim}

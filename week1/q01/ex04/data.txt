@@ -1,0 +1,5 @@
+apple 3
+banana 1
+cherry 5
+apple 2
+durian 4

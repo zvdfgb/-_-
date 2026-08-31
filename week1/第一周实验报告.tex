@@ -1,0 +1,456 @@
+% ============================================================================
+%  系统开发工具基础 · 第 1 周实验报告
+%  姓名：张子航   学号：25020007176
+%  编译：latexmk -xelatex -shell-escape -halt-on-error 第一周实验报告.tex
+% ============================================================================
+
+\documentclass[UTF8, zihao=-4]{ctexart}
+
+% ------------------------------- 基本信息 ---------------------------------
+\newcommand{\university}{中国海洋大学}
+\newcommand{\coursename}{系统开发工具基础}
+\newcommand{\teacher}{周小伟}
+\newcommand{\studentname}{张子航}
+\newcommand{\studentid}{25020007176}
+\newcommand{\reportweek}{第~1~周}
+\newcommand{\reportdate}{2026 年 8 月 24 日}
+
+% ------------------------------- 宏包加载 ---------------------------------
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=cprimary, urlcolor=csecondary, citecolor=csecondary]{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}
+\usepackage{enumitem}
+
+% ------------------------------- 颜色定义 ---------------------------------
+\definecolor{cprimary}{RGB}{15, 76, 129}
+\definecolor{csecondary}{RGB}{46, 134, 193}
+\definecolor{caccent}{RGB}{230, 126, 34}
+\definecolor{clight}{RGB}{240, 246, 251}
+\definecolor{codebg}{RGB}{248, 250, 252}
+\definecolor{cgray}{RGB}{90, 90, 90}
+
+% ------------------------------- 代码块样式 -------------------------------
+\usemintedstyle{vs}
+\setminted{
+  breaklines=true,
+  fontsize=\small,
+  bgcolor=codebg,
+  frame=single,
+  rulecolor=csecondary!35,
+  framesep=4pt,
+  autogobble=true,
+  baselinestretch=1.1,
+}
+
+% ------------------------------- 页眉页脚 ---------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{cprimary}{\coursename}}
+\fancyhead[R]{\small\textcolor{cprimary}{\reportweek \,实验报告}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cprimary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ------------------------------- 自定义命令 -------------------------------
+\newcommand{\makereporttitle}{%
+  \begin{center}
+    {\small\color{cgray}\university\par}
+    \vspace{0.8em}
+    {\Huge\bfseries\color{cprimary}\coursename\par}
+    \vspace{0.3em}
+    {\Large\bfseries 实\quad 验\quad 报\quad 告\par}
+    \vspace{0.6em}
+    {\large\reportweek\par}
+    \vspace{0.8em}
+    {\color{cprimary}\rule{0.7\textwidth}{1.2pt}\par}
+    \vspace{1.2em}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabular}{>{\bfseries}r@{\hspace{1.5em}}l}
+      姓\quad 名 & \studentname \\
+      学\quad 号 & \studentid \\
+      授课教师 & \teacher \\
+      实验日期 & \reportdate \\
+    \end{tabular}
+  \end{center}
+  \vspace{1em}
+}
+
+\newcommand{\contenthead}[1]{%
+  \medskip\noindent\textcolor{cprimary}{\bfseries #1}\par\smallskip
+}
+
+\newcommand{\screenshot}[3][0.95\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}
+}
+
+\newcommand{\gitlink}[1]{\url{#1}}
+
+% ------------------------------- 实验环境 ---------------------------------
+\newtcolorbox{experiment}[2]{%
+  enhanced, breakable,
+  colback=white, colframe=cprimary, colbacktitle=cprimary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课上实验\quad#1\quad——\quad#2},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+\newtcolorbox{exercise}[1]{%
+  enhanced, breakable,
+  colback=clight, colframe=csecondary, colbacktitle=csecondary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课后练习\quad#1},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% ============================================================================
+%                                正文
+% ============================================================================
+\begin{document}
+
+\makereporttitle
+
+% ---------------------------- 一、课上实验检查 ------------------------------
+\section*{一、课上实验检查}
+
+\begin{experiment}{第 1 题}{含空格文件名的批量整理（Shell 基础与文件系统）}
+  \contenthead{实验内容}
+  在 \texttt{q01} 中完全使用命令行完成文件系统整理：创建 \texttt{input/docs} 与
+  \texttt{input/tmp} 两级目录；创建含空格的普通文件 \texttt{notes one.txt}
+  （内容 \texttt{alpha}、\texttt{beta} 两行）、隐藏文件 \texttt{.secret.txt}
+  （内容 \texttt{hidden}）、空文件 \texttt{empty.txt} 与两行日志 \texttt{run.log}；
+  显示 \texttt{q01} 的绝对路径并以长格式列出 \texttt{input} 下全部项目（含隐藏文件）；
+  将 \texttt{input} 下所有 \texttt{.txt} 文件复制到 \texttt{work/25020007176/}，
+  保留相对目录结构并正确处理名称中的空格；最后将复制后的目录权限设为 \texttt{750}、
+  普通文件权限设为 \texttt{640}，并生成记录相对路径与字节数的 \texttt{inventory.txt}。
+
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    # 1) 创建目录与文件
+    mkdir -p input/docs input/tmp
+    printf 'alpha\nbeta\n'  > 'input/docs/notes one.txt'
+    printf 'hidden\n'       > input/docs/.secret.txt
+    touch input/tmp/empty.txt
+    printf '2026-08-24 10:00:00 [INFO] System initialized\n' > input/run.log
+    printf '2026-08-24 10:00:01 [INFO] Task completed\n'    >> input/run.log
+
+    # 2) 显示绝对路径，并长格式列出 input 下全部项目（含隐藏文件）
+    pwd
+    ls -la input
+
+    # 3) 复制所有 .txt 到 work/25020007176/，保留相对结构、处理空格
+    find input -name '*.txt' | while read -r f; do
+      mkdir -p "work/25020007176/$(dirname "$f")"
+      cp "$f" "work/25020007176/$f"
+    done
+
+    # 4) 目录权限 750、文件权限 640
+    find work/25020007176 -type d -exec chmod 750 {} \;
+    find work/25020007176 -type f -exec chmod 640 {} \;
+
+    # 5) 生成 inventory.txt（相对路径 + 字节数）
+    find work -type f -exec sh -c 'for f; do printf "%s %s\n" "$f" "$(wc -c < "$f")"; done' _ {} + > inventory.txt
+  \end{minted}
+
+  \contenthead{实验结果}
+  生成的 \texttt{inventory.txt} 内容如下（相对路径 + 字节数）：
+  \begin{minted}{text}
+    work/25020007176/input/docs/.secret.txt 7
+    work/25020007176/input/docs/notes one.txt 11
+    work/25020007176/input/tmp/empty.txt 0
+  \end{minted}
+  复制后的目录结构与权限均符合要求，终端运行结果见下图。
+
+  \screenshot{figures/q01_terminal.png}{第 1 题终端运行截图}
+\end{experiment}
+
+\begin{experiment}{第 2 题}{随机访问日志统计（Shell 管道与文本处理）}
+  \contenthead{实验内容}
+  在 \texttt{q02} 中创建 \texttt{access.csv} 并编写 \texttt{analyze.sh}。脚本接收一个
+  CSV 文件路径，文件不存在时将错误写入 \texttt{stderr} 并返回非零退出码；使用 Shell 管道
+  及 \texttt{awk}、\texttt{sort}、\texttt{head} 等工具，输出 HTTP 5xx 数量最多的前 2 个
+  \texttt{path}（按次数降序、次数相同按 path 字典序），并输出全部数据行的平均
+  \texttt{latency\_ms}（保留两位小数，表头不计入）。
+
+  \contenthead{关键命令（analyze.sh）}
+  \begin{minted}{bash}
+    #!/bin/bash
+    if [ $# -eq 0 ] || [ ! -f "$1" ]; then
+        echo "Error: File '$1' not found!" >&2
+        exit 1
+    fi
+    FILE="$1"
+
+    echo "Top 2 5xx paths:"
+    awk -F',' '$4 ~ /^5[0-9]{2}$/ {print $3}' "$FILE" \
+      | sort | uniq -c | sort -k1,1nr -k2,2 | head -n 2
+
+    awk -F',' 'NR > 1 { sum += $5; count++ }
+               END { if (count > 0) printf "Average latency: %.2f ms\n", sum / count }' "$FILE"
+  \end{minted}
+
+  \contenthead{实验结果}
+  对 \texttt{access.csv} 运行结果：
+  \begin{minted}{text}
+    Top 2 5xx paths:
+          3 /api/orders
+          2 /api/users
+    Average latency: 193.75 ms
+  \end{minted}
+  对不存在的文件运行，错误信息写入 \texttt{stderr} 且退出码为 1：
+  \begin{minted}{text}
+    Error: File 'nonexist.csv' not found!
+    exit=1
+  \end{minted}
+
+  \screenshot{figures/q02_terminal.png}{第 2 题终端运行截图}
+\end{experiment}
+
+\begin{experiment}{第 3 题}{制造、解决并解释一次合并冲突（Version Control and Git）}
+  \contenthead{实验内容}
+  在 \texttt{q03} 中从零创建一个 Git 仓库，主动制造并解决一次合并冲突：初始化仓库后在
+  \texttt{main} 上创建 \texttt{config.txt}（内容 \texttt{mode=normal}）并完成初始提交；
+  创建 \texttt{feature-a} 将内容改为 \texttt{mode=safe} 并提交；从初始 \texttt{main}
+  创建 \texttt{feature-b} 将内容改为 \texttt{mode=fast} 并提交；回到 \texttt{main} 依次
+  合并两个分支，解决冲突时保留 \texttt{mode=safe} 并另加一行 \texttt{note=reviewed}；
+  确认工作区干净并运行 \texttt{git log --all --graph --decorate --oneline} 查看历史。
+
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    git init
+    echo 'mode=normal' > config.txt
+    git add config.txt && git commit -m 'init: config with mode=normal'
+
+    git switch -c feature-a
+    echo 'mode=safe' > config.txt
+    git commit -am 'feature-a: mode=safe'
+
+    git switch main && git switch -c feature-b
+    echo 'mode=fast' > config.txt
+    git commit -am 'feature-b: mode=fast'
+
+    git switch main
+    git merge feature-a
+    git merge feature-b          # 产生冲突
+    # 手工编辑 config.txt：保留 mode=safe，并追加 note=reviewed
+    git add config.txt && git commit -m 'merge: resolve conflict, keep mode=safe'
+
+    git status                    # 确认工作区干净
+    git log --all --graph --decorate --oneline
+  \end{minted}
+
+  \contenthead{实验结果}
+  冲突解决后 \texttt{config.txt} 最终内容：
+  \begin{minted}{text}
+    mode=safe
+    note=reviewed
+  \end{minted}
+  合并后工作区干净，\texttt{git log --all --graph} 的分支与合并历史见下图。
+
+  \screenshot{figures/q03_terminal.png}{第 3 题 \texttt{git log --graph} 终端截图}
+\end{experiment}
+
+\begin{experiment}{第 4 题}{修复并构建一页技术说明（LaTeX 文档编辑）}
+  \contenthead{实验内容}
+  将给定模板保存为 \texttt{q04/report.tex}，补全内容并从命令行构建 PDF：加入一个带编号与
+  \texttt{label} 的公式并在正文中用 \texttt{eqref} 引用；加入一个 2 行 2 列表格，设置
+  \texttt{caption} 与 \texttt{label} 并在正文中引用；使用
+  \texttt{latexmk -pdf -halt-on-error} 生成 \texttt{report.pdf}；确认 PDF 能打开且交叉引用
+  不显示 ``??''。
+
+  \contenthead{关键内容（report.tex 节选）}
+  \begin{minted}{latex}
+    \documentclass{article}
+    \usepackage{amsmath}
+    \usepackage[UTF8]{ctex}
+    \title{Tool Report}
+    \author{张子航-25020007176}
+    \begin{document}
+    \maketitle
+    \section{实验结果}
+    如公式~\eqref{eq:energy} 所示，质能方程揭示了质量与能量的等价转换关系：
+    \begin{equation}\label{eq:energy}
+      E = mc^2
+    \end{equation}
+    各项实验评估指标结果汇总于表~\ref{tab:results}。
+    \begin{table}[htbp]
+      \centering
+      \begin{tabular}{|c|c|}
+        \hline
+        评估指标 & 测量数值 \\
+        \hline
+        准确率 & 98.5\% \\
+        \hline
+      \end{tabular}
+      \caption{模型评估指标统计表}
+      \label{tab:results}
+    \end{table}
+    \end{document}
+  \end{minted}
+
+  \contenthead{实验结果}
+  使用 \texttt{latexmk -pdf -halt-on-error} 成功构建 \texttt{report.pdf}，
+  公式与表格交叉引用均正常显示（无 ``??''），见下图。
+
+  \screenshot{figures/q04_terminal.png}{第 4 题 LaTeX 构建与 PDF 终端截图}
+\end{experiment}
+
+% ------------------------------ 二、课后练习 -------------------------------
+\section*{二、课后练习}
+
+本讲共完成 \textbf{12} 个课后练习实例（Shell 5 个、Git 4 个、LaTeX 3 个），
+逐条记录练习内容与结果如下。
+
+\begin{exercise}{1 · 目录与文件操作}
+  \contenthead{练习内容}
+  练习 \texttt{mkdir}、\texttt{touch}、\texttt{cp}、\texttt{mv}、\texttt{rm} 及
+  处理含空格文件名时的引号用法。
+  \contenthead{结果}
+  能够正确创建含空格与隐藏文件，复制时用双引号包裹变量，避免路径被拆分。
+
+  \screenshot[0.9\textwidth]{figures/ex01.png}{课后练习 1 终端截图}
+\end{exercise}
+
+\begin{exercise}{2 · 查看隐藏文件}
+  \contenthead{练习内容}
+  练习 \texttt{ls -la}、\texttt{ls -lh} 长格式列出目录并显示隐藏文件。
+  \contenthead{结果}
+  掌握 \texttt{.secret.txt} 等以点开头的隐藏文件需 \texttt{-a} 才可见。
+
+  \screenshot[0.9\textwidth]{figures/ex02.png}{课后练习 2 终端截图}
+\end{exercise}
+
+\begin{exercise}{3 · 管道与重定向}
+  \contenthead{练习内容}
+  练习 \texttt{|} 管道、\texttt{>}、\texttt{>>}、\texttt{2>} 重定向及其组合。
+  \contenthead{结果}
+  能将错误信息写入 \texttt{stderr}、日志追加写入文件，并串联多个命令处理文本。
+
+  \screenshot[0.9\textwidth]{figures/ex03.png}{课后练习 3 终端截图}
+\end{exercise}
+
+\begin{exercise}{4 · 文本搜索与处理}
+  \contenthead{练习内容}
+  练习 \texttt{grep}、\texttt{awk}、\texttt{sed}、\texttt{sort}、\texttt{uniq}、
+  \texttt{head} 等文本处理工具。
+  \contenthead{结果}
+  完成日志统计：筛选 5xx、按次数排序取前 2、计算平均延迟等均正确。
+
+  \screenshot[0.9\textwidth]{figures/ex04.png}{课后练习 4 终端截图}
+\end{exercise}
+
+\begin{exercise}{5 · 文件查找与权限}
+  \contenthead{练习内容}
+  练习 \texttt{find} 按名称/类型查找，\texttt{chmod} 设置目录与文件权限。
+  \contenthead{结果}
+  使用 \texttt{find -exec chmod} 批量设置目录 \texttt{750}、文件 \texttt{640}。
+
+  \screenshot[0.9\textwidth]{figures/ex05.png}{课后练习 5 终端截图}
+\end{exercise}
+
+\begin{exercise}{6 · Git 基础流程}
+  \contenthead{练习内容}
+  练习 \texttt{git init}、\texttt{git add}、\texttt{git commit}、\texttt{git status}。
+  \contenthead{结果}
+  掌握从零初始化仓库并完成首次提交的完整流程。
+
+  \screenshot[0.9\textwidth]{figures/ex06.png}{课后练习 6 终端截图}
+\end{exercise}
+
+\begin{exercise}{7 · 查看版本历史}
+  \contenthead{练习内容}
+  练习 \texttt{git log}、\texttt{git log --oneline --graph --decorate}、\texttt{git diff}。
+  \contenthead{结果}
+  能够用图形化方式查看分支与合并历史，理解提交之间的关系。
+
+  \screenshot[0.9\textwidth]{figures/ex07.png}{课后练习 7 终端截图}
+\end{exercise}
+
+\begin{exercise}{8 · 分支操作}
+  \contenthead{练习内容}
+  练习 \texttt{git branch}、\texttt{git switch -c}、\texttt{git merge}。
+  \contenthead{结果}
+  掌握创建并切换分支、合并分支的基本操作。
+
+  \screenshot[0.9\textwidth]{figures/ex08.png}{课后练习 8 终端截图}
+\end{exercise}
+
+\begin{exercise}{9 · 解决合并冲突}
+  \contenthead{练习内容}
+  练习在两分支同时修改同一文件后合并，手工解决冲突并提交。
+  \contenthead{结果}
+  能识别冲突标记，手工编辑保留目标内容并完成合并提交。
+
+  \screenshot[0.72\textwidth]{figures/ex09.png}{课后练习 9 终端截图}
+\end{exercise}
+
+\begin{exercise}{10 · LaTeX 公式}
+  \contenthead{练习内容}
+  练习 \texttt{equation} 环境、\texttt{label}、\texttt{eqref} 引用公式。
+  \contenthead{结果}
+  正确编写带编号公式并在正文交叉引用。
+
+  \screenshot[0.48\textwidth]{figures/ex10.png}{课后练习 10 编译产物}
+\end{exercise}
+
+\begin{exercise}{11 · LaTeX 表格}
+  \contenthead{练习内容}
+  练习 \texttt{tabular}、\texttt{caption}、\texttt{label}、\texttt{ref} 引用表格。
+  \contenthead{结果}
+  正确插入带标题与编号的表格并引用。
+
+  \screenshot[0.48\textwidth]{figures/ex11.png}{课后练习 11 编译产物}
+\end{exercise}
+
+\begin{exercise}{12 · LaTeX 构建}
+  \contenthead{练习内容}
+  练习使用 \texttt{latexmk -pdf -halt-on-error} 从命令行构建 PDF。
+  \contenthead{结果}
+  掌握命令行编译流程，理解交叉引用需多次编译方可解析。
+
+  \screenshot[0.48\textwidth]{figures/ex12.png}{课后练习 12 编译产物}
+\end{exercise}
+
+% ------------------------------ 三、解题感悟 -------------------------------
+\section*{三、解题感悟}
+
+\contenthead{本讲收获}
+通过第一周的四个课上实验，我系统掌握了 \textbf{Shell 入门}、\textbf{Git 版本控制}与
+\textbf{LaTeX 文档编辑}三大主题：学会了用管道与重定向组合 \texttt{awk}、\texttt{sort} 等
+工具完成文本统计；理解了含空格文件名在命令行中的处理要点；深入理解了 Git 分支模型与合并
+冲突的产生与解决；并能用 LaTeX 编写带公式、表格与交叉引用的技术文档。
+
+\contenthead{遇到的问题与解决}
+一是含空格文件名在命令中被当作多个参数，导致路径解析错误，解决方法是全程用双引号包裹变量与
+路径；二是 Git 合并冲突时不清楚应保留哪个版本，通过打开冲突标记手工编辑、保留 \texttt{mode=safe}
+并追加 \texttt{note=reviewed} 解决；三是 LaTeX 交叉引用初次编译显示 ``??''，原因是引用信息
+需要在两次编译后才会写入，重新编译后恢复正常。
+
+% -------------------------- 四、版本控制与提交记录 --------------------------
+\section*{四、版本控制与提交记录}
+
+\contenthead{仓库链接}
+GitHub 仓库地址：\gitlink{https://github.com/zvdfgb/-_-.git}
+
+\contenthead{提交记录截图}
+本次作业已提交至 GitHub，提交记录截图如下（多次提交、非单次全量提交）。
+
+\screenshot{figures/github_commit_1.png}{GitHub 提交记录截图（一）}
+\screenshot{figures/github_commit_2.png}{GitHub 提交记录截图（二）}
+
+\end{document}

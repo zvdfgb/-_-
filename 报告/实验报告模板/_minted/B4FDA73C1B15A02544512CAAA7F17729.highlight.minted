@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{\PYGZbs{}begin}\PYG{n+nb}{\PYGZob{}}equation\PYG{n+nb}{\PYGZcb{}}\PYG{k}{\PYGZbs{}label}\PYG{n+nb}{\PYGZob{}}eq:sum\PYG{n+nb}{\PYGZcb{}}
+  S = \PYG{k}{\PYGZbs{}sum\PYGZus{}}\PYG{n+nb}{\PYGZob{}}i=1\PYG{n+nb}{\PYGZcb{}\PYGZca{}\PYGZob{}}n\PYG{n+nb}{\PYGZcb{}} i = \PYG{k}{\PYGZbs{}frac}\PYG{n+nb}{\PYGZob{}}n(n+1)\PYG{n+nb}{\PYGZcb{}\PYGZob{}}2\PYG{n+nb}{\PYGZcb{}}
+\PYG{k}{\PYGZbs{}end}\PYG{n+nb}{\PYGZob{}}equation\PYG{n+nb}{\PYGZcb{}}
+由式\PYGZti{}\PYG{k}{\PYGZbs{}eqref}\PYG{n+nb}{\PYGZob{}}eq:sum\PYG{n+nb}{\PYGZcb{}} 可知…… 结果见表\PYGZti{}\PYG{k}{\PYGZbs{}ref}\PYG{n+nb}{\PYGZob{}}tab:data\PYG{n+nb}{\PYGZcb{}}。
+\end{MintedVerbatim}

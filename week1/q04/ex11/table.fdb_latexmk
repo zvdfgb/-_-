@@ -1,0 +1,17 @@
+# Fdb version 4
+["pdflatex"] 1787561821.78862 "table.tex" "table.pdf" "table" 1787561823.15191 0
+  "c:/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1778247288 35752 024fb6c41858982481f6968b5fc26508 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/article.cls" 1778250299 20144 b966087dda3b194755eb460d32e2ef75 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/base/size10.clo" 1778250300 8448 686612a86f0e04f41ea577f5ec7e83d8 ""
+  "c:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1778250261 30662 bfd6e864f4ffc5018b0e2b6260c3181c ""
+  "c:/texlive/2026/texmf-dist/web2c/texmf.cnf" 1778247170 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
+  "c:/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1778254104 5587484 f8c68a611032439b64384a9c9a056676 ""
+  "c:/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1778254333 3636412 5a16f950fe8ce2ff78f620f3ac80fcd5 ""
+  "c:/texlive/2026/texmf.cnf" 1778254057 713 e69b156964470283e0530f5060668171 ""
+  "table.aux" 1787561823 187 0c14f135896681b2aed9cc9380763ec2 "pdflatex"
+  "table.tex" 1787561818 291 9cbaa6f93bf65c8f1abfbd163dcf9c14 ""
+  (generated)
+  "table.aux"
+  "table.log"
+  "table.pdf"
+  (rewritten before read)

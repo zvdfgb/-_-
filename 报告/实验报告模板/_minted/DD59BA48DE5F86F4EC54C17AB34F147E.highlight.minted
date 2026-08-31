@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/env bash}
+\PYG{o}{[}\PYG{+w}{ }\PYGZhy{}f\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{+w}{ }\PYG{o}{]}\PYG{+w}{ }\PYG{o}{||}\PYG{+w}{ }\PYG{o}{\PYGZob{}}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}error: no such file: }\PYG{n+nv}{\PYGZdl{}1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{+w}{ }\PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{2}\PYG{p}{;}\PYG{+w}{ }\PYG{n+nb}{exit}\PYG{+w}{ }\PYG{l+m}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{o}{\PYGZcb{}}
+tail\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }+2\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }awk\PYG{+w}{ }\PYGZhy{}F,\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}4 \PYGZti{} /\PYGZca{}5[0\PYGZhy{}9][0\PYGZhy{}9]\PYGZdl{}/ \PYGZob{}c[\PYGZdl{}3]++\PYGZcb{} END \PYGZob{}for (p in c) print c[p], p\PYGZcb{}\PYGZsq{}}\PYG{+w}{ }\PYG{l+s+se}{\PYGZbs{}}
+\PYG{+w}{  }\PYG{p}{|}\PYG{+w}{ }sort\PYG{+w}{ }\PYGZhy{}k1,1nr\PYG{+w}{ }\PYGZhy{}k2,2\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }head\PYG{+w}{ }\PYGZhy{}2
+tail\PYG{+w}{ }\PYGZhy{}n\PYG{+w}{ }+2\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{+w}{ }\PYG{p}{|}\PYG{+w}{ }awk\PYG{+w}{ }\PYGZhy{}F,\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}\PYGZob{}s+=\PYGZdl{}5; n++\PYGZcb{} END \PYGZob{}printf \PYGZdq{}\PYGZpc{}.2f\PYGZbs{}n\PYGZdq{}, s/n\PYGZcb{}\PYGZsq{}}
+\end{MintedVerbatim}
