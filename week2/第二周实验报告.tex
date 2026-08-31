@@ -8,7 +8,6 @@
 
 % ------------------------------- 基本信息 ---------------------------------
 \newcommand{\university}{中国海洋大学}
-\newcommand{\college}{计算机科学与技术学院}
 \newcommand{\coursename}{系统开发工具基础}
 \newcommand{\teacher}{周小伟}
 \newcommand{\studentname}{张子航}
@@ -65,7 +64,7 @@
 % ------------------------------- 自定义命令 -------------------------------
 \newcommand{\makereporttitle}{%
   \begin{center}
-    {\small\color{cgray}\university\ · \college\par}
+    {\small\color{cgray}\university\par}
     \vspace{0.8em}
     {\Huge\bfseries\color{cprimary}\coursename\par}
     \vspace{0.3em}
@@ -411,19 +410,10 @@
 \section*{三、解题感悟}
 
 \contenthead{本讲收获}
-第二周课程系统学习了现代软件开发工具链的核心三大支柱：
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{命令行环境与任务调度}：掌握了 Linux/Unix POSIX 信号捕获机制（\texttt{trap}、\texttt{SIGTERM}、\texttt{SIGHUP}）、作业控制（前后台切换、挂起与恢复、\texttt{disown} 守护）以及利用子 Shell 进程组实现多任务并发调度；
-  \item \textbf{现代开发环境与代码质量反馈}：通过语言服务器（LSP）实现了符号级语义跨文件重构，告别了粗暴的文本替换；体验了新一代 Rust 编写的静态分析工具 Ruff，配合 Pytest 数据驱动测试构建起快速、可靠的本地代码质量门禁；
-  \item \textbf{科学的调试与性能剖析方法}：摆脱了依赖大量 \texttt{print} 的低效排查手段，学会利用 \texttt{pdb} 进行断点调试与运行时状态内省；使用 \texttt{cProfile} 与 \texttt{tracemalloc} 从 CPU 时间与内存空间两个维度对程序进行量化度量，践行“先测量，再优化”的工程准则。
-\end{enumerate}
+通过第二周的实验与练习，我深入掌握了 \textbf{命令行环境}、\textbf{现代开发工具链} 与 \textbf{调试及性能分析} 三大主题：理解了 POSIX 信号与作业控制机制；掌握了基于 LSP 的跨文件安全语义重构，以及利用 Ruff 和 Pytest 构建本地质量门禁；学会了使用 PDB 进行单步交互式调试，并利用 \texttt{cProfile} 与 \texttt{tracemalloc} 从 CPU 耗时和内存空间两方面量化评估与优化代码。
 
 \contenthead{遇到的问题与解决}
-\begin{itemize}[label=\textbullet]
-  \item \textbf{Windows Git Bash 下的信号与交互兼容性}：在 Windows Git Bash 环境下调用 Windows 原生 \texttt{python.exe} 时，由于操作系统信号映射机制的差异，前台运行 Python 无法直接通过 \texttt{Ctrl+Z} 挂起。通过分析原因，改用 MSYS2 原生工具（如 \texttt{sleep}）或直接使用后台管道重定向（\texttt{\&}）完成实验；同时对于交互式 PDB 调试，使用 \texttt{winpty} 前缀解决了终端控制台响应问题。
-  \item \textbf{复杂算法中的细微下标陷阱}：归并排序中因右侧分支误用左侧索引 \texttt{right[i]} 导致下标越界与排序混乱，肉眼排查较为耗时。通过 PDB 单步执行并实时打印 \texttt{i, j, left[i], right[j]} 的当前值，迅速捕获了变量递增与索引引用的不匹配点。
-  \item \textbf{性能分析中的数据结构选型}：在词频统计与大规模数据去重实验中，体会到列表 $\mathcal{O}(N)$ 线性搜索在数据量膨胀时引起的耗时爆炸。借助 \texttt{cProfile} 累计时间统计直观定位热点后，将算法切换为基于哈希表的 $\mathcal{O}(1)$ 集合操作，耗时直接从秒级压缩至毫秒级。
-\end{itemize}
+一是 Windows Git Bash 下 Win32 原生 Python 进程对 POSIX 挂起信号兼容受限，通过改用 Bash 原生命令测试 \texttt{Ctrl+Z}，或使用后台重定向调度及 \texttt{winpty} 解决交互式 PDB 问题；二是归并排序中右侧分支误写索引 \texttt{right[i]} 导致越界，借助 PDB 单步观察变量快速定位修复；三是词频统计中列表线性查找导致耗时过长，通过 \texttt{cProfile} 定位瓶颈后重构为哈希集合 \texttt{set}，获得了显著的性能加速。
 
 % -------------------------- 四、版本控制与提交记录 --------------------------
 \section*{四、版本控制与提交记录}
