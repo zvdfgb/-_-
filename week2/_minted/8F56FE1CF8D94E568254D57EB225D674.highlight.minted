@@ -1,0 +1,9 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+chmod\PYG{+w}{ }+x\PYG{+w}{ }worker.sh
+./worker.sh\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }stdout.log\PYG{+w}{ }\PYG{l+m}{2}\PYGZgt{}\PYG{+w}{ }stderr.log\PYG{+w}{ }\PYG{p}{\PYGZam{}}
+\PYG{n+nv}{PID}\PYG{o}{=}\PYG{k}{\PYGZdl{}(}\PYG{n+nb}{jobs}\PYG{+w}{ }\PYGZhy{}p\PYG{k}{)}
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Worker started with PID: }\PYG{n+nv}{\PYGZdl{}PID}\PYG{l+s+s2}{\PYGZdq{}}
+sleep\PYG{+w}{ }\PYG{l+m}{3}
+\PYG{n+nb}{kill}\PYG{+w}{ }\PYGZhy{}TERM\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}}\PYG{n+nv}{\PYGZdl{}PID}\PYG{l+s+s2}{\PYGZdq{}}
+cat\PYG{+w}{ }cleanup.log
+\end{MintedVerbatim}

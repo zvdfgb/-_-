@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }ruff\PYG{+w}{ }check\PYG{+w}{ }messy\PYGZus{}code.py
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }ruff\PYG{+w}{ }check\PYG{+w}{ }messy\PYGZus{}code.py\PYG{+w}{ }\PYGZhy{}\PYGZhy{}fix
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }ruff\PYG{+w}{ }format\PYG{+w}{ }messy\PYGZus{}code.py
+\end{MintedVerbatim}

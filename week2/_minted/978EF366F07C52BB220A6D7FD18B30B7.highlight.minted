@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{o}{(}\PYG{+w}{ }sleep\PYG{+w}{ }\PYG{l+m}{2}\PYG{p}{;}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Task 1 Done\PYGZdq{}}\PYG{+w}{ }\PYG{o}{)}\PYG{+w}{ }\PYG{p}{\PYGZam{}}
+\PYG{n+nv}{PID1}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}!}
+\PYG{o}{(}\PYG{+w}{ }sleep\PYG{+w}{ }\PYG{l+m}{1}\PYG{p}{;}\PYG{+w}{ }\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Task 2 Done\PYGZdq{}}\PYG{+w}{ }\PYG{o}{)}\PYG{+w}{ }\PYG{p}{\PYGZam{}}
+\PYG{n+nv}{PID2}\PYG{o}{=}\PYG{n+nv}{\PYGZdl{}!}
+\PYG{n+nb}{wait}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}PID1}\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }\PYG{n+nb}{wait}\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}PID2}
+\end{MintedVerbatim}

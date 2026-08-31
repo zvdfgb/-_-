@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+(Pdb) b 5
+(Pdb) c
+(Pdb) p left, right, mid, nums[mid]
+(Pdb) n
+\end{MintedVerbatim}

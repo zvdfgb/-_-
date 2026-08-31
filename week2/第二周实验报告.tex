@@ -1,0 +1,440 @@
+% ============================================================================
+%  系统开发工具基础 · 第 2 周实验报告
+%  姓名：张子航   学号：25020007176
+%  编译：latexmk -xelatex -shell-escape -halt-on-error 第二周实验报告.tex
+% ============================================================================
+
+\documentclass[UTF8, zihao=-4]{ctexart}
+
+% ------------------------------- 基本信息 ---------------------------------
+\newcommand{\university}{中国海洋大学}
+\newcommand{\college}{计算机科学与技术学院}
+\newcommand{\coursename}{系统开发工具基础}
+\newcommand{\teacher}{周小伟}
+\newcommand{\studentname}{张子航}
+\newcommand{\studentid}{25020007176}
+\newcommand{\reportweek}{第~2~周}
+\newcommand{\reportdate}{2026 年 8 月 31 日}
+
+% ------------------------------- 宏包加载 ---------------------------------
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=cprimary, urlcolor=csecondary, citecolor=csecondary]{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}
+\usepackage{enumitem}
+
+% ------------------------------- 颜色定义 ---------------------------------
+\definecolor{cprimary}{RGB}{15, 76, 129}
+\definecolor{csecondary}{RGB}{46, 134, 193}
+\definecolor{caccent}{RGB}{230, 126, 34}
+\definecolor{clight}{RGB}{240, 246, 251}
+\definecolor{codebg}{RGB}{248, 250, 252}
+\definecolor{cgray}{RGB}{90, 90, 90}
+
+% ------------------------------- 代码块样式 -------------------------------
+\usemintedstyle{vs}
+\setminted{
+  breaklines=true,
+  fontsize=\small,
+  bgcolor=codebg,
+  frame=single,
+  rulecolor=csecondary!35,
+  framesep=4pt,
+  autogobble=true,
+  baselinestretch=1.1,
+}
+
+% ------------------------------- 页眉页脚 ---------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{cprimary}{\coursename}}
+\fancyhead[R]{\small\textcolor{cprimary}{\reportweek \,实验报告}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cprimary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ------------------------------- 自定义命令 -------------------------------
+\newcommand{\makereporttitle}{%
+  \begin{center}
+    {\small\color{cgray}\university\ · \college\par}
+    \vspace{0.8em}
+    {\Huge\bfseries\color{cprimary}\coursename\par}
+    \vspace{0.3em}
+    {\Large\bfseries 实\quad 验\quad 报\quad 告\par}
+    \vspace{0.6em}
+    {\large\reportweek\par}
+    \vspace{0.8em}
+    {\color{cprimary}\rule{0.7\textwidth}{1.2pt}\par}
+    \vspace{1.2em}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabular}{>{\bfseries}r@{\hspace{1.5em}}l}
+      姓\quad 名 & \studentname \\
+      学\quad 号 & \studentid \\
+      授课教师 & \teacher \\
+      实验日期 & \reportdate \\
+    \end{tabular}
+  \end{center}
+  \vspace{1em}
+}
+
+\newcommand{\contenthead}[1]{%
+  \medskip\noindent\textcolor{cprimary}{\bfseries #1}\par\smallskip
+}
+
+\newcommand{\screenshot}[3][0.92\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}
+}
+
+\newcommand{\gitlink}[1]{\url{#1}}
+
+% ------------------------------- 实验环境 ---------------------------------
+\newtcolorbox{experiment}[2]{%
+  enhanced, breakable,
+  colback=white, colframe=cprimary, colbacktitle=cprimary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课上实验\quad#1\quad——\quad#2},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+\newtcolorbox{exercise}[1]{%
+  enhanced, breakable,
+  colback=clight, colframe=csecondary, colbacktitle=csecondary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课后练习\quad#1},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% ============================================================================
+%                                正文
+% ============================================================================
+\begin{document}
+
+\makereporttitle
+
+% ---------------------------- 一、课上实验检查 ------------------------------
+\section*{一、课上实验检查}
+
+\begin{experiment}{第 5 题}{控制一个可清理的后台任务（进程、信号与任务控制）}
+  \contenthead{实验内容}
+  在 \texttt{q05} 中编写可优雅退出的后台脚本 \texttt{worker.sh}，设置 \texttt{trap} 捕获 \texttt{TERM} 与 \texttt{INT} 信号并在退出前向 \texttt{cleanup.log} 写入 \texttt{CLEAN\_EXIT}；赋予执行权限并在前台启动，将 \texttt{stdout} 与 \texttt{stderr} 分别重定向至 \texttt{stdout.log} 与 \texttt{stderr.log}；利用作业控制快捷键挂起任务并转入后台（\texttt{bg}）；使用 \texttt{jobs -p} 获取进程 PID，发送 \texttt{SIGTERM} 信号终止任务，验证进程退出且清理日志正确生成，严禁使用 \texttt{kill -9}。
+
+  \contenthead{关键命令与脚本（worker.sh）}
+  \begin{minted}{bash}
+    #!/usr/bin/env bash
+    trap 'echo CLEAN_EXIT >> cleanup.log; exit 0' TERM INT
+    n=0
+    while true; do
+        echo "$n"
+        n=$((n+1))
+        sleep 1
+    done
+  \end{minted}
+
+  \contenthead{执行控制命令}
+  \begin{minted}{bash}
+    chmod +x worker.sh
+    ./worker.sh > stdout.log 2> stderr.log &
+    PID=$(jobs -p)
+    echo "Worker started with PID: $PID"
+    sleep 3
+    kill -TERM "$PID"
+    cat cleanup.log
+  \end{minted}
+
+  \contenthead{实验结果}
+  任务在接收到 \texttt{SIGTERM} 信号后成功触发 \texttt{trap} 钩子，\texttt{cleanup.log} 中成功写入 \texttt{CLEAN\_EXIT} 并安全退出。终端执行与状态检查见下图。
+
+  \screenshot{figures/q05_1.png}{第 5 题后台任务启动与信号发送截图}
+  \screenshot{figures/q05_2.png}{第 5 题 cleanup.log 验证与退出状态截图}
+\end{experiment}
+
+\begin{experiment}{第 6 题}{语义重构与本地开发反馈（开发环境与工具）}
+  \contenthead{实验内容}
+  在 \texttt{q06} 中创建 \texttt{math\_utils.py}、\texttt{app.py} 与 \texttt{test\_math\_utils.py} 三个 Python 源码文件；在已配置好 Python 语言服务器（LSP）的编辑器中演示“跳转到定义”（Go to Definition）与“查找所有引用”（Find References）；使用语言服务器提供的“重命名符号”（Rename Symbol）功能，将 \texttt{total\_price} 一键全局重构为 \texttt{calculate\_total}，保证定义处与所有跨文件引用同步变更；在 \texttt{app.py} 中临时加入未使用的 \texttt{import os}，利用 \texttt{ruff} 静态分析工具快速检测并移除冗余代码；最后运行 \texttt{ruff check} 与 \texttt{pytest} 验证全部通过。
+
+  \contenthead{关键源码与重构结果}
+  \begin{minted}{python}
+    # math_utils.py (重构后)
+    def calculate_total(price: float, count: int) -> float:
+        return price * count
+
+    # app.py (重构并清除未用 import 后)
+    from math_utils import calculate_total
+    print(calculate_total(12.5, 4))
+
+    # test_math_utils.py
+    from math_utils import calculate_total
+    def test_calculate_total():
+        assert calculate_total(12.5, 4) == 50.0
+  \end{minted}
+
+  \contenthead{质量检查与测试命令}
+  \begin{minted}{bash}
+    python -m ruff check .
+    python -m pytest -v
+  \end{minted}
+
+  \contenthead{实验结果}
+  符号重命名全局生效且未破坏任何依赖调用，\texttt{ruff check} 报告 0 错误，\texttt{pytest} 单元测试顺利通过。
+
+  \screenshot{figures/q06_1.png}{第 6 题 LSP 跨文件跳转与引用查找截图}
+  \screenshot{figures/q06_5.png}{第 6 题 Ruff 检查与 Pytest 测试通过截图}
+\end{experiment}
+
+\begin{experiment}{第 7 题}{用调试器定位归并排序缺陷（Debugging）}
+  \contenthead{实验内容}
+  将给定的缺陷归并排序代码保存为 \texttt{q07/merge\_sort.py}；运行测试输入确认结果异常；使用 \texttt{pdb} 调试器在 \texttt{merge} 函数中设置断点，单步跟踪（\texttt{n}）并检查变量 \texttt{i, j, left[i], right[j]}，定位出原代码在右侧合并分支中误将索引写为 \texttt{result.append(right[i])} 导致下标越界与逻辑错误；进行最小代码修复（将 \texttt{right[i]} 改为 \texttt{right[j]}）；使用 \texttt{pytest} 编写针对给定输入以及包含重复元素的测试用例，保证测试完全通过。
+
+  \contenthead{修复对比与测试代码（test\_merge\_sort.py）}
+  \begin{minted}{python}
+    # merge_sort.py 关键修复：
+    # 原缺陷：result.append(right[i]); j += 1
+    # 修复后：result.append(right[j]); j += 1
+
+    # test_merge_sort.py
+    from merge_sort import merge_sort
+
+    def test_given_input():
+        assert merge_sort([3, 1, 4, 1, 5, 9, 2, 6]) == [1, 1, 2, 3, 4, 5, 6, 9]
+
+    def test_duplicate_elements():
+        assert merge_sort([5, 2, 2, 8, 2, 1]) == [1, 2, 2, 2, 5, 8]
+  \end{minted}
+
+  \contenthead{实验结果}
+  通过调试器精准定位出单字符下标缺陷，修复后归并排序恢复稳定与正确性，Pytest 测试全部通过。
+
+  \screenshot{figures/q07_2.png}{第 7 题 PDB 断点跟踪与变量监视截图}
+  \screenshot{figures/q07_3.png}{第 7 题 Pytest 单元测试通过截图}
+\end{experiment}
+
+\begin{experiment}{第 8 题}{先测量，再优化慢速词频程序（Profiling）}
+  \contenthead{实验内容}
+  在 \texttt{q08} 中运行 \texttt{generate\_words.py} 生成含 30000 词的基准测试集 \texttt{words.txt}；使用 \texttt{time} 测量原始低效 \texttt{wordfreq.py} 的运行耗时；使用 \texttt{cProfile -s cumulative} 剖析性能瓶颈，查明列表的线性包含查找 \texttt{if word not in unique} 导致了 $\mathcal{O}(N \cdot K)$ 的极高时间开销；利用哈希集合 \texttt{set()} 对去重算法进行重构优化；使用相同输入再次测试，计算优化前后的加速比。
+
+  \contenthead{优化前后的算法对比（wordfreq.py）}
+  \begin{minted}{python}
+    # 优化前：列表线性搜索 O(N^2)
+    unique = []
+    for word in words:
+        if word not in unique:
+            unique.append(word)
+
+    # 优化后：哈希集合 O(N)
+    unique = set()
+    for word in words:
+        unique.add(word)
+    print("count=", len(unique))
+  \end{minted}
+
+  \contenthead{实验结果}
+  去重统计结果均为 \texttt{count= 1000}。经性能分析，原程序耗时主要集中在列表包含查找，优化为集合结构后运行耗时由秒级骤降至数毫秒，获得了数十倍的显著性能加速比。
+
+  \screenshot{figures/q08_1.png}{第 8 题 cProfile 性能分析与耗时瓶颈定位截图}
+  \screenshot{figures/q08_2.png}{第 8 题 优化后性能测试与加速比统计截图}
+\end{experiment}
+
+% ------------------------------ 二、课后练习 -------------------------------
+\section*{二、课后练习}
+
+本讲共完成 \textbf{10} 个课后练习实例，全面覆盖命令行环境、开发工具链、调试技术与性能分析四大核心模块。
+
+\begin{exercise}{1 · Shell 别名与环境变量持久化配置}
+  \contenthead{练习内容}
+  在 Git Bash 中掌握 \texttt{alias} 快捷命令的创建与作用域，理解 \texttt{export} 环境变量在子 Shell 间的传递机制，并将其写入 \texttt{\textasciitilde/.bashrc} 完成持久化加载。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    export COURSE_SEMESTER="2026-Fall-SDT"
+    alias pycheck="ruff check . && pytest -v"
+    echo 'alias myll="ls -la --time-style=long-iso"' >> ~/.bashrc
+    source ~/.bashrc
+  \end{minted}
+  \contenthead{实验结果}
+  子 Shell 成功读取到导出环境变量，重新加载配置后自定义长格式列表别名 \texttt{myll} 运行正常。
+
+  \screenshot[0.9\textwidth]{figures/ex01.png}{课后练习 1 运行截图}
+\end{exercise}
+
+\begin{exercise}{2 · 自定义多信号捕获与优雅停机}
+  \contenthead{练习内容}
+  编写 \texttt{daemon\_trap.sh}，使用 \texttt{trap} 分别监听 \texttt{SIGHUP}（配置热重载）与 \texttt{SIGINT/SIGTERM}（清理退出），实现进程受控安全停机与日志记录。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    trap 'log "SIGNAL" "Caught SIGHUP: Reloading...";' SIGHUP
+    trap 'log "SIGNAL" "Caught SIGINT/SIGTERM: Cleaning up..."; rm -f temp.pid; exit 0' INT TERM
+    kill -HUP $DPID
+    kill -TERM $DPID
+  \end{minted}
+  \contenthead{实验结果}
+  向进程发送不同信号触发了预设的钩子动作，日志准确记录了重载与清理退出全过程。
+
+  \screenshot[0.9\textwidth]{figures/ex02.png}{课后练习 2 运行截图}
+\end{exercise}
+
+\begin{exercise}{3 · 后台任务挂起与作业控制}
+  \contenthead{练习内容}
+  练习前台阻塞任务与后台作业调度，使用 \texttt{\&} 后台启动、\texttt{jobs -l} 列出作业状态，并掌握前后台切换（\texttt{fg}、\texttt{bg}）及 \texttt{disown} 脱离终端关联。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    python -u -c "import time; [time.sleep(1) for _ in range(30)]" > task.log 2>&1 &
+    jobs -l
+    fg %1
+  \end{minted}
+  \contenthead{实验结果}
+  在 Git Bash 环境下成功实现后台任务状态监控、输入输出文件解耦以及前后台平滑切换。
+
+  \screenshot[0.9\textwidth]{figures/ex03.png}{课后练习 3 运行截图}
+\end{exercise}
+
+\begin{exercise}{4 · 子 Shell 进程组并发与结果汇聚}
+  \contenthead{练习内容}
+  编写 \texttt{parallel\_tasks.sh}，使用 \texttt{(...) \&} 启动多个子 Shell 进程组并发执行耗时任务，利用 \texttt{wait \$PID} 汇聚子任务退出状态，实现并发加速。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    ( sleep 2; echo "Task 1 Done" ) &
+    PID1=$!
+    ( sleep 1; echo "Task 2 Done" ) &
+    PID2=$!
+    wait $PID1 && wait $PID2
+  \end{minted}
+  \contenthead{实验结果}
+  两项耗时任务并发执行，总运行时长取决于最长单任务时间（约 2 秒），相比串行执行显著节约耗时。
+
+  \screenshot[0.9\textwidth]{figures/ex04.png}{课后练习 4 运行截图}
+\end{exercise}
+
+\begin{exercise}{5 · 代码静态质量门禁与 Ruff 自动修复}
+  \contenthead{练习内容}
+  配置 \texttt{pyproject.toml} 规则，使用 \texttt{ruff check} 扫描未用变量、冗余导入与废弃语法，并通过 \texttt{--fix} 和 \texttt{ruff format} 进行一键全自动修复与排版。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    python -m ruff check messy_code.py
+    python -m ruff check messy_code.py --fix
+    python -m ruff format messy_code.py
+  \end{minted}
+  \contenthead{实验结果}
+  Ruff 准确检测出 \texttt{F401}（未使用的导入）与 \texttt{F841}（未使用的局部变量），一键修复后代码整洁无告警。
+
+  \screenshot[0.9\textwidth]{figures/ex05_1.png}{课后练习 5 静态检查与自动修复截图}
+\end{exercise}
+
+\begin{exercise}{6 · 基于 Pytest 的参数化测试与异常断言}
+  \contenthead{练习内容}
+  为计算模块编写单元测试，利用 \texttt{@pytest.mark.parametrize} 组织多组边界测试数据，并利用 \texttt{pytest.raises} 验证零除异常的处理逻辑。
+  \contenthead{关键命令}
+  \begin{minted}{python}
+    @pytest.mark.parametrize("a, b, expected", [(10, 2, 5.0), (-8, 2, -4.0), (0, 5, 0.0)])
+    def test_safe_divide_success(a, b, expected):
+        assert safe_divide(a, b) == expected
+  \end{minted}
+  \contenthead{实验结果}
+  运行 \texttt{python -m pytest -v}，全部 5 个测试用例均通过（含 4 组参数化用例和 1 组异常用例）。
+
+  \screenshot[0.9\textwidth]{figures/ex06.png}{课后练习 6 单元测试运行截图}
+\end{exercise}
+
+\begin{exercise}{7 · 使用 PDB 交互式断点定位二分查找边界死循环}
+  \contenthead{练习内容}
+  在 Git Bash 中通过 \texttt{winpty python -m pdb} 启动交互式调试，设置断点跟踪变量 \texttt{left} 与 \texttt{right}，定位区间无法收缩的死循环 Bug 并完成修复。
+  \contenthead{关键命令}
+  \begin{minted}{text}
+    (Pdb) b 5
+    (Pdb) c
+    (Pdb) p left, right, mid, nums[mid]
+    (Pdb) n
+  \end{minted}
+  \contenthead{实验结果}
+  成功定位出 \texttt{left = mid} 导致的死循环，修改为 \texttt{left = mid + 1} 后检索结果正确。
+
+  \screenshot[0.9\textwidth]{figures/ex07.png}{课后练习 7 PDB 调试终端截图}
+\end{exercise}
+
+\begin{exercise}{8 · 使用 Python logging 模块构建分级与多目标诊断日志}
+  \contenthead{练习内容}
+  使用 \texttt{logging} 模块替代传统 \texttt{print} 调试，配置 \texttt{FileHandler} 记录详细 \texttt{DEBUG} 追踪信息，同时配置 \texttt{StreamHandler} 仅在控制台呈现重要告警。
+  \contenthead{关键代码与命令}
+  \begin{minted}{python}
+    fmt = logging.Formatter("%(asctime)s [%(levelname)s] (%(filename)s:%(lineno)d) - %(message)s")
+    fh.setLevel(logging.DEBUG); ch.setLevel(logging.WARNING)
+  \end{minted}
+  \contenthead{实验结果}
+  控制台输出整洁聚焦，\texttt{app.log} 完整记录包含时间戳与行号的全量诊断轨迹。
+
+  \screenshot[0.9\textwidth]{figures/ex08.png}{课后练习 8 日志输出与文件验证截图}
+\end{exercise}
+
+\begin{exercise}{9 · 使用 cProfile 与 pstats 定位多调用链性能瓶颈}
+  \contenthead{练习内容}
+  使用 \texttt{cProfile} 收集程序执行剖析数据，通过 \texttt{pstats} 按函数自身执行耗时（\texttt{tottime}）排序，精准定位低效字符串拼接瓶颈并完成重构优化。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    python -m cProfile -o profile.stats profile_demo.py
+    python analyze_stats.py
+  \end{minted}
+  \contenthead{实验结果}
+  通过性能报告精准锁定瓶颈函数，优化后其自身耗时降低 85\% 以上，实现显著加速。
+
+  \screenshot[0.9\textwidth]{figures/ex09.png}{课后练习 9 性能剖析与热点统计截图}
+\end{exercise}
+
+\begin{exercise}{10 · 使用 tracemalloc 跟踪内存分配峰值与流式优化}
+  \contenthead{练习内容}
+  使用 Python 内置的 \texttt{tracemalloc} 监控代码运行期间的内存分配峰值（Peak Memory），对比大列表全量缓存与生成器迭代器的内存开销差异。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    tracemalloc.start()
+    total = sum(load_with_generator(1_000_000))
+    _, peak = tracemalloc.get_traced_memory()
+  \end{minted}
+  \contenthead{实验结果}
+  全量列表占用峰值达 38.5MB，而生成器仅占用不足 0.01MB，充分验证了流式处理在大数据量下的极低内存占用优势。
+
+  \screenshot[0.9\textwidth]{figures/ex10.png}{课后练习 10 内存峰值对比截图}
+\end{exercise}
+
+% ------------------------------ 三、解题感悟 -------------------------------
+\section*{三、解题感悟}
+
+\contenthead{本讲收获}
+第二周课程系统学习了现代软件开发工具链的核心三大支柱：
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{命令行环境与任务调度}：掌握了 Linux/Unix POSIX 信号捕获机制（\texttt{trap}、\texttt{SIGTERM}、\texttt{SIGHUP}）、作业控制（前后台切换、挂起与恢复、\texttt{disown} 守护）以及利用子 Shell 进程组实现多任务并发调度；
+  \item \textbf{现代开发环境与代码质量反馈}：通过语言服务器（LSP）实现了符号级语义跨文件重构，告别了粗暴的文本替换；体验了新一代 Rust 编写的静态分析工具 Ruff，配合 Pytest 数据驱动测试构建起快速、可靠的本地代码质量门禁；
+  \item \textbf{科学的调试与性能剖析方法}：摆脱了依赖大量 \texttt{print} 的低效排查手段，学会利用 \texttt{pdb} 进行断点调试与运行时状态内省；使用 \texttt{cProfile} 与 \texttt{tracemalloc} 从 CPU 时间与内存空间两个维度对程序进行量化度量，践行“先测量，再优化”的工程准则。
+\end{enumerate}
+
+\contenthead{遇到的问题与解决}
+\begin{itemize}[label=\textbullet]
+  \item \textbf{Windows Git Bash 下的信号与交互兼容性}：在 Windows Git Bash 环境下调用 Windows 原生 \texttt{python.exe} 时，由于操作系统信号映射机制的差异，前台运行 Python 无法直接通过 \texttt{Ctrl+Z} 挂起。通过分析原因，改用 MSYS2 原生工具（如 \texttt{sleep}）或直接使用后台管道重定向（\texttt{\&}）完成实验；同时对于交互式 PDB 调试，使用 \texttt{winpty} 前缀解决了终端控制台响应问题。
+  \item \textbf{复杂算法中的细微下标陷阱}：归并排序中因右侧分支误用左侧索引 \texttt{right[i]} 导致下标越界与排序混乱，肉眼排查较为耗时。通过 PDB 单步执行并实时打印 \texttt{i, j, left[i], right[j]} 的当前值，迅速捕获了变量递增与索引引用的不匹配点。
+  \item \textbf{性能分析中的数据结构选型}：在词频统计与大规模数据去重实验中，体会到列表 $\mathcal{O}(N)$ 线性搜索在数据量膨胀时引起的耗时爆炸。借助 \texttt{cProfile} 累计时间统计直观定位热点后，将算法切换为基于哈希表的 $\mathcal{O}(1)$ 集合操作，耗时直接从秒级压缩至毫秒级。
+\end{itemize}
+
+% -------------------------- 四、版本控制与提交记录 --------------------------
+\section*{四、版本控制与提交记录}
+
+\contenthead{仓库链接}
+GitHub 仓库地址：\gitlink{https://github.com/zvdfgb/-_-.git}
+
+\contenthead{提交记录说明与截图}
+本周所有课上实验代码、课后练习脚本及实验报告文档均严格按照课程规范，使用 Git 进行分阶段、有针对性的多次颗粒度提交，严禁单次全量提交。提交历史记录截图如下。
+
+\screenshot{figures/github_commit_1.png}{GitHub 提交记录截图（一）}
+\screenshot{figures/github_commit_2.png}{GitHub 提交记录截图（二）}
+
+\end{document}

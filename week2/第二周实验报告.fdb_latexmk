@@ -1,0 +1,14 @@
+# Fdb version 4
+["xdvipdfmx"] 0 "第二周实验报告.xdv" "第二周实验报告.pdf" "第二周实验报告" 0 -1
+  "第二周实验报告.xdv" 0 -1 0 "xelatex"
+  (generated)
+  "第二周实验报告.pdf"
+  (rewritten before read)
+["xelatex"] 0 "第二周实验报告.tex" "第二周实验报告.xdv" "第二周实验报告" 0 -1
+  "第二周实验报告.aux" 0 -1 0 "xelatex"
+  "第二周实验报告.tex" 0 -1 0 ""
+  (generated)
+  "第二周实验报告.aux"
+  "第二周实验报告.log"
+  "第二周实验报告.xdv"
+  (rewritten before read)

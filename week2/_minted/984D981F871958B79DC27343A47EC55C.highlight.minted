@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{tracemalloc}\PYG{o}{.}\PYG{n}{start}\PYG{p}{()}
+\PYG{n}{total} \PYG{o}{=} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n}{load\PYGZus{}with\PYGZus{}generator}\PYG{p}{(}\PYG{l+m+mi}{1\PYGZus{}000\PYGZus{}000}\PYG{p}{))}
+\PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{peak} \PYG{o}{=} \PYG{n}{tracemalloc}\PYG{o}{.}\PYG{n}{get\PYGZus{}traced\PYGZus{}memory}\PYG{p}{()}
+\end{MintedVerbatim}

@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{trap}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}log \PYGZdq{}SIGNAL\PYGZdq{} \PYGZdq{}Caught SIGHUP: Reloading...\PYGZdq{};\PYGZsq{}}\PYG{+w}{ }SIGHUP
+\PYG{n+nb}{trap}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}log \PYGZdq{}SIGNAL\PYGZdq{} \PYGZdq{}Caught SIGINT/SIGTERM: Cleaning up...\PYGZdq{}; rm \PYGZhy{}f temp.pid; exit 0\PYGZsq{}}\PYG{+w}{ }INT\PYG{+w}{ }TERM
+\PYG{n+nb}{kill}\PYG{+w}{ }\PYGZhy{}HUP\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}DPID}
+\PYG{n+nb}{kill}\PYG{+w}{ }\PYGZhy{}TERM\PYG{+w}{ }\PYG{n+nv}{\PYGZdl{}DPID}
+\end{MintedVerbatim}

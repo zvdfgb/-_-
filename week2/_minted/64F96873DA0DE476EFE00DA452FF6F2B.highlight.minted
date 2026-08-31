@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }\PYGZhy{}u\PYG{+w}{ }\PYGZhy{}c\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}import time; [time.sleep(1) for \PYGZus{} in range(30)]\PYGZdq{}}\PYG{+w}{ }\PYGZgt{}\PYG{+w}{ }task.log\PYG{+w}{ }\PYG{l+m}{2}\PYGZgt{}\PYG{p}{\PYGZam{}}\PYG{l+m}{1}\PYG{+w}{ }\PYG{p}{\PYGZam{}}
+\PYG{n+nb}{jobs}\PYG{+w}{ }\PYGZhy{}l
+\PYG{n+nb}{fg}\PYG{+w}{ }\PYGZpc{}1
+\end{MintedVerbatim}

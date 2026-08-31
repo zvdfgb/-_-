@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }cProfile\PYG{+w}{ }\PYGZhy{}o\PYG{+w}{ }profile.stats\PYG{+w}{ }profile\PYGZus{}demo.py
+python\PYG{+w}{ }analyze\PYGZus{}stats.py
+\end{MintedVerbatim}

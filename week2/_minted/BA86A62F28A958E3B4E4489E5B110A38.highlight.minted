@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{export}\PYG{+w}{ }\PYG{n+nv}{COURSE\PYGZus{}SEMESTER}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}2026\PYGZhy{}Fall\PYGZhy{}SDT\PYGZdq{}}
+\PYG{n+nb}{alias}\PYG{+w}{ }\PYG{n+nv}{pycheck}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}ruff check . \PYGZam{}\PYGZam{} pytest \PYGZhy{}v\PYGZdq{}}
+\PYG{n+nb}{echo}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}alias myll=\PYGZdq{}ls \PYGZhy{}la \PYGZhy{}\PYGZhy{}time\PYGZhy{}style=long\PYGZhy{}iso\PYGZdq{}\PYGZsq{}}\PYG{+w}{ }\PYGZgt{}\PYGZgt{}\PYG{+w}{ }\PYGZti{}/.bashrc
+\PYG{n+nb}{source}\PYG{+w}{ }\PYGZti{}/.bashrc
+\end{MintedVerbatim}

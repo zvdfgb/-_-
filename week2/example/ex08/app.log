@@ -1,0 +1,5 @@
+2026-08-31 14:38:14,691 [DEBUG] (app_logger.py:22) - Handling input n=10
+2026-08-31 14:38:14,691 [DEBUG] (app_logger.py:22) - Handling input n=-5
+2026-08-31 14:38:14,691 [WARNING] (app_logger.py:24) - Negative value detected: -5
+2026-08-31 14:38:14,691 [DEBUG] (app_logger.py:22) - Handling input n=0
+2026-08-31 14:38:14,691 [ERROR] (app_logger.py:26) - Zero encountered!
