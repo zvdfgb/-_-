@@ -1,0 +1,17 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} 1. 重写 Issue}
+\PYG{g+gs}{**Title**}: [Bug] 命令行参数 \PYG{l+s+sb}{`\PYGZhy{}\PYGZhy{}name`} 为纯空白字符时未进行有效校验
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }\PYG{g+gs}{**运行环境**}: Windows 11 / Python 3.13 (其他系统待确认)
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }\PYG{g+gs}{**复现命令**}: \PYG{l+s+sb}{`sdt\PYGZhy{}greet \PYGZhy{}\PYGZhy{}name \PYGZdq{}   \PYGZdq{}`}
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }\PYG{g+gs}{**期望结果**}: 识别非法输入，向 stderr 输出错误并以状态码 2 退出
+\PYG{k}{\PYGZhy{}}\PYG{+w}{ }\PYG{g+gs}{**实际结果**}: 输出 \PYG{l+s+sb}{`Hello,    !`} 并以退出码 0 正常退出
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} 2. 重写 Commit Message}
+fix(cli): reject whitespace\PYGZhy{}only names with exit code 2
+Treat names consisting entirely of whitespace characters as invalid input.
+Inspect the stripped argument after parsing; if empty, terminate execution
+via sys.exit(2) to prevent printing a greeting for blank names.
+
+\PYG{g+gu}{\PYGZsh{}\PYGZsh{} 3. 重写 Code Review 意见}
+\PYG{g+gs}{**[Blocking]**}: 当前实现未对 \PYG{l+s+sb}{`a.name`} 执行空白字符校验。当用户传入纯空格参数时，仍会输出 \PYG{l+s+sb}{`Hello,   !`} 并静默返回 0。该行为不符合参数校验规范。建议在 \PYG{l+s+sb}{`parse\PYGZus{}args()`} 后添加 \PYG{l+s+sb}{`if not a.name.strip(): sys.exit(2)`}，并补充对应的单元测试覆盖纯空白输入场景。
+\end{MintedVerbatim}

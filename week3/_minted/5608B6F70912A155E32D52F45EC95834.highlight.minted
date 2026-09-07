@@ -1,0 +1,4 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }build\PYG{+w}{ }\PYGZhy{}\PYGZhy{}sdist
+tar\PYG{+w}{ }\PYGZhy{}ztvf\PYG{+w}{ }dist/demo\PYGZus{}pkg\PYGZus{}25020007176\PYGZhy{}0.1.0.tar.gz
+\end{MintedVerbatim}

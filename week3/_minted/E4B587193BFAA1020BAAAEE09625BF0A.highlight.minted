@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{A} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{([[}\PYG{l+m+mf}{1.0}\PYG{p}{,} \PYG{l+m+mf}{2.0}\PYG{p}{,} \PYG{l+m+mf}{3.0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{l+m+mf}{5.0}\PYG{p}{,} \PYG{l+m+mf}{6.0}\PYG{p}{]])}
+\PYG{n}{B} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{([}\PYG{l+m+mf}{10.0}\PYG{p}{,} \PYG{l+m+mf}{20.0}\PYG{p}{,} \PYG{l+m+mf}{30.0}\PYG{p}{])}
+\PYG{n}{broadcast\PYGZus{}sum} \PYG{o}{=} \PYG{n}{A} \PYG{o}{+} \PYG{n}{B}   \PYG{c+c1}{\PYGZsh{} 广播求和}
+\PYG{n}{matmul\PYGZus{}res} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{matmul}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,} \PYG{n}{C}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} 矩阵相乘 (2, 1)}
+\end{MintedVerbatim}

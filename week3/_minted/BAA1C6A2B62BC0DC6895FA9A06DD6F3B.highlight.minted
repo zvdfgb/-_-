@@ -1,0 +1,17 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{for} \PYG{n}{epoch} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{200}\PYG{p}{):}
+    \PYG{n}{pred} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+    \PYG{n}{loss} \PYG{o}{=} \PYG{n}{loss\PYGZus{}fn}\PYG{p}{(}\PYG{n}{pred}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+    \PYG{n}{opt}\PYG{o}{.}\PYG{n}{zero\PYGZus{}grad}\PYG{p}{()}   \PYG{c+c1}{\PYGZsh{} 清空历史梯度}
+    \PYG{n}{loss}\PYG{o}{.}\PYG{n}{backward}\PYG{p}{()}    \PYG{c+c1}{\PYGZsh{} 反向传播计算梯度}
+    \PYG{n}{opt}\PYG{o}{.}\PYG{n}{step}\PYG{p}{()}        \PYG{c+c1}{\PYGZsh{} 更新模型参数}
+
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{eval}\PYG{p}{()}
+\PYG{k}{with} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{no\PYGZus{}grad}\PYG{p}{():}
+    \PYG{n}{final\PYGZus{}pred} \PYG{o}{=} \PYG{n}{model}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}
+    \PYG{n}{final\PYGZus{}loss} \PYG{o}{=} \PYG{n}{loss\PYGZus{}fn}\PYG{p}{(}\PYG{n}{final\PYGZus{}pred}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}\PYG{o}{.}\PYG{n}{item}\PYG{p}{()}
+    \PYG{n}{w}\PYG{p}{,} \PYG{n}{b} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{weight}\PYG{o}{.}\PYG{n}{item}\PYG{p}{(),} \PYG{n}{model}\PYG{o}{.}\PYG{n}{bias}\PYG{o}{.}\PYG{n}{item}\PYG{p}{()}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Final Loss: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{final\PYGZus{}loss}\PYG{l+s+si}{:}\PYG{l+s+s2}{.6f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Weight: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{w}\PYG{l+s+si}{:}\PYG{l+s+s2}{.6f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ (Target: 3.0), Bias: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{b}\PYG{l+s+si}{:}\PYG{l+s+s2}{.6f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ (Target: \PYGZhy{}1.0)\PYGZdq{}}\PYG{p}{)}
+    \PYG{k}{assert} \PYG{n}{final\PYGZus{}loss} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.001}
+\end{MintedVerbatim}

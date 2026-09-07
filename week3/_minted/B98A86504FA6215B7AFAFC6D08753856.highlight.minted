@@ -1,0 +1,11 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} 构建 Wheel 二进制分发包}
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }build
+\PYG{c+c1}{\PYGZsh{} 创建纯净虚拟环境并激活}
+python\PYG{+w}{ }\PYGZhy{}m\PYG{+w}{ }venv\PYG{+w}{ }.venv\PYGZus{}test
+\PYG{n+nb}{source}\PYG{+w}{ }.venv\PYGZus{}test/Scripts/activate
+\PYG{c+c1}{\PYGZsh{} 安装 Wheel 并切换至包外验证}
+pip\PYG{+w}{ }install\PYG{+w}{ }dist/greetlab\PYGZus{}25020007176\PYGZhy{}0.1.0\PYGZhy{}py3\PYGZhy{}none\PYGZhy{}any.whl
+\PYG{n+nb}{cd}\PYG{+w}{ }..
+sdt\PYGZhy{}greet\PYG{+w}{ }\PYGZhy{}\PYGZhy{}name\PYG{+w}{ }\PYG{l+m}{25020007176}
+\end{MintedVerbatim}

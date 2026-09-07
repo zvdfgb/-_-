@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{required\PYGZus{}sections} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}Environment\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Reproduction Steps\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}Expected vs Actual\PYGZdq{}}\PYG{p}{]}
+\PYG{k}{for} \PYG{n}{sec} \PYG{o+ow}{in} \PYG{n}{required\PYGZus{}sections}\PYG{p}{:}
+    \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{re}\PYG{o}{.}\PYG{n}{search}\PYG{p}{(}\PYG{l+s+sa}{rf}\PYG{l+s+s2}{\PYGZdq{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZbs{}s+}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{re}\PYG{o}{.}\PYG{n}{escape}\PYG{p}{(}\PYG{n}{sec}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{issue\PYGZus{}content}\PYG{p}{):}
+        \PYG{n}{sys}\PYG{o}{.}\PYG{n}{exit}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\end{MintedVerbatim}

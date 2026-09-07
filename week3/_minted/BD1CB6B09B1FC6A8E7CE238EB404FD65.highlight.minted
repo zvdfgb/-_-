@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{importlib.resources}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{files}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{json}
+\PYG{n}{data\PYGZus{}path} \PYG{o}{=} \PYG{n}{files}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}respack\PYGZdq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{joinpath}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}data/config.json\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{config} \PYG{o}{=} \PYG{n}{json}\PYG{o}{.}\PYG{n}{loads}\PYG{p}{(}\PYG{n}{data\PYGZus{}path}\PYG{o}{.}\PYG{n}{read\PYGZus{}text}\PYG{p}{(}\PYG{n}{encoding}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}utf\PYGZhy{}8\PYGZdq{}}\PYG{p}{))}
+\end{MintedVerbatim}

@@ -1,0 +1,5 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{required\PYGZus{}keys} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}thought\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}action\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}files\PYGZus{}modified\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}exit\PYGZus{}code\PYGZdq{}}\PYG{p}{\PYGZcb{}}
+\PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{required\PYGZus{}keys}\PYG{o}{.}\PYG{n}{issubset}\PYG{p}{(}\PYG{n}{data}\PYG{o}{.}\PYG{n}{keys}\PYG{p}{()):}
+    \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Missing required contract keys\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -1,0 +1,428 @@
+% ============================================================================
+%  系统开发工具基础 · 第 3 周实验报告
+%  姓名：张子航   学号：25020007176
+%  编译：latexmk -xelatex -shell-escape -halt-on-error 第二周实验报告.tex
+% ============================================================================
+
+\documentclass[UTF8, zihao=-4]{ctexart}
+
+% ------------------------------- 基本信息 ---------------------------------
+\newcommand{\university}{中国海洋大学}
+\newcommand{\coursename}{系统开发工具基础}
+\newcommand{\teacher}{周小伟}
+\newcommand{\studentname}{张子航}
+\newcommand{\studentid}{25020007176}
+\newcommand{\reportweek}{第~3~周}
+\newcommand{\reportdate}{2026 年 9 月 7 日}
+
+% ------------------------------- 宏包加载 ---------------------------------
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=cprimary, urlcolor=csecondary, citecolor=csecondary]{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}
+\usepackage{enumitem}
+
+% ------------------------------- 颜色定义 ---------------------------------
+\definecolor{cprimary}{RGB}{15, 76, 129}
+\definecolor{csecondary}{RGB}{46, 134, 193}
+\definecolor{caccent}{RGB}{230, 126, 34}
+\definecolor{clight}{RGB}{240, 246, 251}
+\definecolor{codebg}{RGB}{248, 250, 252}
+\definecolor{cgray}{RGB}{90, 90, 90}
+
+% ------------------------------- 代码块样式 -------------------------------
+\usemintedstyle{vs}
+\setminted{
+  breaklines=true,
+  fontsize=\small,
+  bgcolor=codebg,
+  frame=single,
+  rulecolor=csecondary!35,
+  framesep=4pt,
+  autogobble=true,
+  baselinestretch=1.1,
+}
+
+% ------------------------------- 页眉页脚 ---------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{cprimary}{\coursename}}
+\fancyhead[R]{\small\textcolor{cprimary}{\reportweek \,实验报告}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cprimary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ------------------------------- 自定义命令 -------------------------------
+\newcommand{\makereporttitle}{%
+  \begin{center}
+    {\small\color{cgray}\university\par}
+    \vspace{0.8em}
+    {\Huge\bfseries\color{cprimary}\coursename\par}
+    \vspace{0.3em}
+    {\Large\bfseries 实\quad 验\quad 报\quad 告\par}
+    \vspace{0.6em}
+    {\large\reportweek\par}
+    \vspace{0.8em}
+    {\color{cprimary}\rule{0.7\textwidth}{1.2pt}\par}
+    \vspace{1.2em}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabular}{>{\bfseries}r@{\hspace{1.5em}}l}
+      姓\quad 名 & \studentname \\
+      学\quad 号 & \studentid \\
+      授课教师 & \teacher \\
+      实验日期 & \reportdate \\
+    \end{tabular}
+  \end{center}
+  \vspace{1em}
+}
+
+\newcommand{\contenthead}[1]{%
+  \medskip\noindent\textcolor{cprimary}{\bfseries #1}\par\smallskip
+}
+
+\newcommand{\screenshot}[3][0.92\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}
+}
+
+\newcommand{\gitlink}[1]{\url{#1}}
+
+% ------------------------------- 实验环境 ---------------------------------
+\newtcolorbox{experiment}[2]{%
+  enhanced, breakable,
+  colback=white, colframe=cprimary, colbacktitle=cprimary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课上实验\quad#1\quad——\quad#2},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+\newtcolorbox{exercise}[1]{%
+  enhanced, breakable,
+  colback=clight, colframe=csecondary, colbacktitle=csecondary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课后练习\quad#1},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% ============================================================================
+%                                正文
+% ============================================================================
+
+\begin{document}
+
+\makereporttitle
+
+% ---------------------------- 一、课上实验检查 ------------------------------
+\section*{一、课上实验检查}
+
+\begin{experiment}{第 9 题}{从源码构建并在干净环境安装 Wheel（Packaging and Shipping Code）}
+  \contenthead{实验内容}
+  在 \texttt{q09} 目录下构建标准的 Python 命令行分发包。编写 \texttt{src/greetlab/cli.py} 与空的 \texttt{\_\_init\_\_.py}，配置符合 PEP 621 标准的 \texttt{pyproject.toml}，并将包名命名为 \texttt{greetlab-25020007176}、入口脚本注册为 \texttt{sdt-greet}。在已安装 build 工具的环境中执行 \texttt{python -m build} 生成 Wheel 分发包；创建干净隔离的虚拟环境 \texttt{.venv\_test}，仅从生成的 \texttt{.whl} 安装；切换到项目目录外执行 \texttt{sdt-greet --name 25020007176} 验证命令行工具正常安装并输出预期问候语。
+  
+  \contenthead{核心配置文件（pyproject.toml）}
+  \begin{minted}{toml}
+    [build-system]
+    requires = ["setuptools>=68"]
+    build-backend = "setuptools.build_meta"
+
+    [project]
+    name = "greetlab-25020007176"
+    version = "0.1.0"
+
+    [project.scripts]
+    sdt-greet = "greetlab.cli:main"
+  \end{minted}
+
+  \contenthead{构建、安装与验证命令}
+  \begin{minted}{bash}
+    # 构建 Wheel 二进制分发包
+    python -m build
+    # 创建纯净虚拟环境并激活
+    python -m venv .venv_test
+    source .venv_test/Scripts/activate
+    # 安装 Wheel 并切换至包外验证
+    pip install dist/greetlab_25020007176-0.1.0-py3-none-any.whl
+    cd ..
+    sdt-greet --name 25020007176
+  \end{minted}
+
+  \contenthead{实验结果}
+  成功生成 \texttt{.whl} 与 \texttt{.tar.gz} 构建产物，在纯净隔离虚拟环境中成功完成安装，包外执行 \texttt{sdt-greet} 准确输出 \texttt{Hello, 25020007176!}。终端运行记录见下图。
+  \screenshot{figures/q09_1.png}{第 9 题 Wheel 源码构建过程截图}
+  \screenshot{figures/q09_2.png}{第 9 题 纯净虚拟环境安装与命令验证截图}
+\end{experiment}
+
+\begin{experiment}{第 10 题}{让编程智能体进入可验证的修复循环（智能体编程）}
+  \contenthead{实验内容}
+  复制 \texttt{q09} 为 \texttt{q10}，按照测试驱动开发（TDD）与智能体修复循环（Agentic Loop）流程开展实验。首先编写失败的单元测试用例 \texttt{tests/test\_cli.py}：当 \texttt{--name} 传入全为空白字符时，\texttt{main()} 应当主动抛出状态码为 2 的 \texttt{SystemExit} 异常；运行 \texttt{pytest} 确认断言失败；随后向编程智能体提出包含明确目标、约束与测试规范的提示词，由智能体生成最小修复代码；人工审查 diff 确认无多余变更后再次运行测试保证绿色通过；最后在 \texttt{ai\_log.md} 中严格以不超过 5 行简明记录整个交互循环。
+
+  \contenthead{核心测试与修复代码}
+  \begin{minted}{python}
+    # tests/test\_cli.py (失败测试用例)
+    def test_blank_name_exits_with_code_2(monkeypatch):
+        monkeypatch.setattr(sys, "argv", ["sdt-greet", "--name", "   "])
+        with pytest.raises(SystemExit) as exc_info:
+            main()
+        assert exc_info.value.code == 2
+
+    # src/greetlab/cli.py (智能体最小修复)
+    a = p.parse_args()
+    if not a.name.strip():
+        sys.exit(2)
+    print(f"Hello, {a.name}!")
+  \end{minted}
+
+  \contenthead{实验结果}
+  运行测试经历清晰的“红-绿”转变，人工审查确认代码改动精准且未引入额外依赖，\texttt{pytest} 最终测试全部通过。
+  \screenshot{figures/q10_1.png}{第 10 题 测试用例初始失败（Red 阶段）截图}
+  \screenshot{figures/q10_2.png}{第 10 题 智能体修复后测试通过（Green 阶段）截图}
+\end{experiment}
+
+\begin{experiment}{第 11 题}{把“无法处理”的协作材料改成可执行信息（不止于代码）}
+  \contenthead{实验内容}
+  围绕软件工程中的沟通痛点，针对“空姓名仍输出问候语”缺陷，重构三份低效、模糊的低质量协作文本。在 \texttt{q11/communication.md} 中完成改写：重写 Issue，明确测试环境、可复现命令、期望结果与实际结果；重写 Git Commit Message，遵循 Conventional Commits 规范，使用祈使语气并说明动机与方案；重写 Code Review 意见，明确缺陷严重等级（Blocking）、行为影响与具体改进指导。全文严格控制在 400 字以内，保持高度专业与紧凑。
+
+  \contenthead{重写后的规范化协作材料（communication.md）}
+  \begin{minted}{markdown}
+    ## 1. 重写 Issue
+    **Title**: [Bug] 命令行参数 `--name` 为纯空白字符时未进行有效校验
+    - **运行环境**: Windows 11 / Python 3.13 (其他系统待确认)
+    - **复现命令**: `sdt-greet --name "   "`
+    - **期望结果**: 识别非法输入，向 stderr 输出错误并以状态码 2 退出
+    - **实际结果**: 输出 `Hello,    !` 并以退出码 0 正常退出
+
+    ## 2. 重写 Commit Message
+    fix(cli): reject whitespace-only names with exit code 2
+    Treat names consisting entirely of whitespace characters as invalid input.
+    Inspect the stripped argument after parsing; if empty, terminate execution
+    via sys.exit(2) to prevent printing a greeting for blank names.
+
+    ## 3. 重写 Code Review 意见
+    **[Blocking]**: 当前实现未对 `a.name` 执行空白字符校验。当用户传入纯空格参数时，仍会输出 `Hello,   !` 并静默返回 0。该行为不符合参数校验规范。建议在 `parse_args()` 后添加 `if not a.name.strip(): sys.exit(2)`，并补充对应的单元测试覆盖纯空白输入场景。
+  \end{minted}
+
+  \contenthead{实验结果}
+  改写后的三份材料完全满足可复现性、信息完备性与可执行性标准，排版整洁紧凑。
+  \screenshot{figures/q11_1.png}{第 11 题 规范化协作材料文档截图}
+\end{experiment}
+
+\begin{experiment}{第 12 题}{修复一个可复现的线性回归训练循环（Python 与 PyTorch）}
+  \contenthead{实验内容}
+  在 \texttt{q12/train.py} 中构建 PyTorch 线性回归可复现训练基准。固定随机数种子 \texttt{torch.manual\_seed(20260907)}，生成目标关系为 $y = 3x - 1$ 的线性数据；构建单层线性模型 \texttt{nn.Linear(1, 1)}、均方误差损失 \texttt{nn.MSELoss()} 与 SGD 优化器；补全训练循环内的核心梯度操作，严格按序执行 \texttt{opt.zero\_grad()}、\texttt{loss.backward()} 与 \texttt{opt.step()} 进行 200 轮参数更新；训练完成后切换至评估模式 \texttt{model.eval()}，在 \texttt{torch.no\_grad()} 上下文中计算最终损失并输出权重 \texttt{weight} 与偏置 \texttt{bias}，断言最终损失必须小于 0.001。
+
+  \contenthead{补全后的核心训练代码（train.py）}
+  \begin{minted}{python}
+    for epoch in range(200):
+        pred = model(x)
+        loss = loss_fn(pred, y)
+        opt.zero_grad()   # 清空历史梯度
+        loss.backward()    # 反向传播计算梯度
+        opt.step()        # 更新模型参数
+
+    model.eval()
+    with torch.no_grad():
+        final_pred = model(x)
+        final_loss = loss_fn(final_pred, y).item()
+        w, b = model.weight.item(), model.bias.item()
+        print(f"Final Loss: {final_loss:.6f}")
+        print(f"Weight: {w:.6f} (Target: 3.0), Bias: {b:.6f} (Target: -1.0)")
+        assert final_loss < 0.001
+  \end{minted}
+
+  \contenthead{实验结果}
+  经过 200 轮 SGD 迭代，损失稳定收敛至约 $0.00003$，学习得到的权重 $w \approx 2.992$、偏置 $b \approx -0.993$，完全满足损失小于 0.001 的指标要求。
+  \screenshot{figures/q12_1.png}{第 12 题 PyTorch 线性回归收敛与评估输出截图}
+\end{experiment}
+
+% ------------------------------ 二、课后练习 -------------------------------
+\section*{二、课后练习}
+
+本讲共完成 \textbf{10} 个课后练习实例，全面覆盖代码打包与分发、智能体编程、工程协作规范以及 PyTorch 基础四大核心模块。
+
+\begin{exercise}{1 · 源码分发包（sdist）构建与 tar.gz 包内容解压校验}
+  \contenthead{练习内容}
+  深入掌握 Python 标准化分发的 \texttt{sdist} 机制。配置 \texttt{pyproject.toml}，执行 \texttt{python -m build --sdist} 生成 \texttt{.tar.gz} 源码归档，并使用 \texttt{tar -ztvf} 解构归档文件清单，验证源码与元数据包含的完整性。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    python -m build --sdist
+    tar -ztvf dist/demo_pkg_25020007176-0.1.0.tar.gz
+  \end{minted}
+  \contenthead{实验结果}
+  成功构建包含 \texttt{PKG-INFO}、\texttt{pyproject.toml} 与源码文件的标准 tar.gz 包，目录归档层级完整。
+  \screenshot{figures/ex01.png}{课后练习 1 运行截图}
+\end{exercise}
+
+\begin{exercise}{2 · setuptools entry\_points 多命令注册与 CLI 动态派发}
+  \contenthead{练习内容}
+  在 \texttt{pyproject.toml} 的 \texttt{project.scripts} 下配置多个独立命令行入口 \texttt{mtool-add} 与 \texttt{mtool-ping}，使用 \texttt{pip install -e .} 安装后验证多入口动态派发与参数求和功能。
+  \contenthead{关键代码与命令}
+  \begin{minted}{toml}
+    [project.scripts]
+    mtool-add = "multitool:tool_add"
+    mtool-ping = "multitool:tool_ping"
+  \end{minted}
+  \contenthead{实验结果}
+  终端成功执行两套不同的独立命令行指令，参数解析及命令调用完全解耦且响应正常。
+  \screenshot{figures/ex02.png}{课后练习 2 运行截图}
+\end{exercise}
+
+\begin{exercise}{3 · Python 包非代码资源（package\_data）打包与读取}
+  \contenthead{练习内容}
+  掌握工程包中静态非代码资源（如 JSON 配置文件、数据表）的打包规范。配置 \texttt{tool.setuptools.package-data}，利用现代标准库 \texttt{importlib.resources} 安全读取安装后模块内置的数据文件。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    from importlib.resources import files
+    import json
+    data_path = files("respack").joinpath("data/config.json")
+    config = json.loads(data_path.read_text(encoding="utf-8"))
+  \end{minted}
+  \contenthead{实验结果}
+  打包 Wheel 中成功内嵌 \texttt{config.json}，并在运行时由 \texttt{importlib.resources} 跨平台安全解析加载。
+  \screenshot{figures/ex03.png}{课后练习 3 运行截图}
+\end{exercise}
+
+\begin{exercise}{4 · 结构化 Agent 约束规范与 Markdown 输出契约检验}
+  \contenthead{练习内容}
+  构建针对编程智能体交互输出的结构化契约守卫脚本。模拟校验包含 \texttt{thought}、\texttt{action}、\texttt{files\_modified} 等核心字段的 JSON 协议，当契约被破坏时返回非零退出码阻断执行。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    required_keys = {"thought", "action", "files_modified", "exit_code"}
+    if not required_keys.issubset(data.keys()):
+        raise ValueError("Missing required contract keys")
+  \end{minted}
+  \contenthead{实验结果}
+  有效实现了基于防御性编程的自动化格式校验机制，确保智能体下游工作流的稳定性。
+  \screenshot{figures/ex04.png}{课后练习 4 运行截图}
+\end{exercise}
+
+\begin{exercise}{5 · Git 差异比对与自动生成规范语义化提交（Conventional Commit）}
+  \contenthead{练习内容}
+  编写 Python 规则解析脚本，根据已变更文件的类型（测试文件、文档、核心源码）动态分类并自动生成符合 Conventional Commits 规范的标准化提交信息（如 \texttt{feat(core): ...}）。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    scope = "core" if has_py else ("docs" if has_docs else "test")
+    c_type = "feat" if has_py else ("docs" if has_docs else "test")
+    return f"{c_type}({scope}): auto-generated conventional commit"
+  \end{minted}
+  \contenthead{实验结果}
+  脚本准确识别代码改动文件特征并生成结构化的语义提交头，极大降低了手动编写提交说明的出错率。
+  \screenshot{figures/ex05.png}{课后练习 5 运行截图}
+\end{exercise}
+
+\begin{exercise}{6 · 结构化 Issue 模板自动化生成与质量门禁校验}
+  \contenthead{练习内容}
+  使用正则表达式验证 Issue 文本内容的质量，检查其是否完整具备“运行环境”、“复现步骤”及“期望 vs 实际结果”三大强制性模块，不合规时阻断创建。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    required_sections = ["Environment", "Reproduction Steps", "Expected vs Actual"]
+    for sec in required_sections:
+        if not re.search(rf"###\s+{re.escape(sec)}", issue_content):
+            sys.exit(1)
+  \end{minted}
+  \contenthead{实验结果}
+  校验机制成功拦截缺失关键复现步骤的模糊反馈，通过标准化门禁保障了工程协作信息的高效流转。
+  \screenshot{figures/ex06.png}{课后练习 6 运行截图}
+\end{exercise}
+
+\begin{exercise}{7 · 代码评审（Code Review）分级标记与准入检测}
+  \contenthead{练习内容}
+  实现自动化 Code Review 准入门禁逻辑。对评审意见分类标记（Blocking、Suggestion、Nit），当扫描到未闭环的 \texttt{[Blocking]} 级缺陷时抛出非零退出码阻止分支合入。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    blocking = [c for c in review_comments if "[Blocking]" in c]
+    if blocking:
+        print("[FAIL] Merge blocked by unaddressed Blocking issues")
+        sys.exit(1)
+  \end{minted}
+  \contenthead{实验结果}
+  准入门禁准确捕获到阻断性严重问题，返回退出状态码 1，确保潜在缺陷在合并前被强制修复。
+  \screenshot{figures/ex07.png}{课后练习 7 运行截图}
+\end{exercise}
+
+\begin{exercise}{8 · PyTorch 张量广播机制（Broadcasting）与矩阵运算验证}
+  \contenthead{练习内容}
+  验证 PyTorch 张量的维度对齐与自动广播机制，对比二维张量 $(2, 3)$ 与一维张量 $(3,)$ 在加法中的广播扩展行为，并验证矩阵乘法 \texttt{torch.matmul} 的形状契约。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    A = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
+    B = torch.tensor([10.0, 20.0, 30.0])
+    broadcast_sum = A + B   # 广播求和
+    matmul_res = torch.matmul(A, C) # 矩阵相乘 (2, 1)
+  \end{minted}
+  \contenthead{实验结果}
+  张量运算按预期维度完成自动广播，矩阵乘法输出形状契合线性代数定义，计算精准无误。
+  \screenshot{figures/ex08.png}{课后练习 8 运行截图}
+\end{exercise}
+
+\begin{exercise}{9 · 自动求导（Autograd）与计算图梯度反向传播机制}
+  \contenthead{练习内容}
+  探究 PyTorch 的 \texttt{Autograd} 自动求导引擎机制。定义多元复合函数 $z = 2x^2 + 3y$，启用梯度追踪，调用 \texttt{z.backward()} 并断言各变量梯度 $\frac{\partial z}{\partial x}=4x$ 与 $\frac{\partial z}{\partial y}=3$ 的精确度。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    x = torch.tensor(3.0, requires_grad=True)
+    y = torch.tensor(4.0, requires_grad=True)
+    z = 2 * (x ** 2) + 3 * y
+    z.backward()
+    assert x.grad.item() == 12.0 and y.grad.item() == 3.0
+  \end{minted}
+  \contenthead{实验结果}
+  计算图正确反向传递，导数输出与微积分理论解析解完全一致，成功通过硬断言。
+  \screenshot{figures/ex09.png}{课后练习 9 运行截图}
+\end{exercise}
+
+\begin{exercise}{10 · 带有自适应学习率调度的非线性多项式拟合（Adam + StepLR）}
+  \contenthead{练习内容}
+  使用 PyTorch 拟合非线性二次曲线 $y = 0.5x^2 - 2x + 1$。构建多项式特征输入 $[x, x^2]$，采用 Adam 优化器并结合 \texttt{StepLR} 动态衰减学习率，在 300 轮内将均方误差降至 0.001 以下。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
+    scheduler = StepLR(optimizer, step_size=100, gamma=0.5)
+    for epoch in range(300):
+        # forward, backward, step & lr decay
+        scheduler.step()
+  \end{minted}
+  \contenthead{实验结果}
+  动态学习率调度有效避免了优化震荡，训练损失迅速收敛至 $0.0003$，多项式参数拟合高精度完成。
+  \screenshot{figures/ex10.png}{课后练习 10 运行截图}
+\end{exercise}
+
+% ------------------------------ 三、解题感悟 -------------------------------
+\section*{三、解题感悟}
+
+\contenthead{本讲收获}
+通过第三周的实验与练习，我系统性地掌握了现代软件工程中的四大进阶核心技能：
+一是深入理解了 Python 代码的分发与构建机制（Packaging and Shipping），掌握了符合 PEP 517/621 标准的 \texttt{pyproject.toml} 配置体系，理解了 Wheel 二进制分发与 sdist 源码分发的差异及其隔离安装验证流程；
+二是切身体会了智能体辅助编程（Agentic Programming）与 TDD 思想的结合，理解了如何通过制定严格的接口契约与失败测试指导 AI 精准编码，并养成了人工复核 diff 的安全防御习惯；
+三是深刻认识到“不止于代码”在团队协作中的重要价值，掌握了 Conventional Commits 语义化提交、结构化可复现 Issue 以及分级 Code Review 意见的撰写规范；
+四是建立了对深度学习框架 PyTorch 的基本认知，理清了张量计算、广播机制、Autograd 动态计算图以及反向传播循环的核心机制。
+
+\contenthead{遇到的问题与解决}
+一是在 Windows 环境下构建与安装 Wheel 时，直接在项目源码根目录下执行 \texttt{sdt-greet} 会因优先加载当前目录而掩盖打包安装的实际效果。通过创建干净的隔离虚拟环境并主动 \texttt{cd} 切换到项目外验证，彻底排除了本地路径干扰；
+二是在智能体修复空白字符串时，最初提示未强调“仅包含空白字符”的特殊情况，导致未覆盖连续空格场景。通过在提示词中明确规范并编写猴子补丁（monkeypatch）单元测试用例，成功引导智能体采用了更健壮的 \texttt{strip()} 空白过滤逻辑；
+三是在 PyTorch 训练循环中，容易疏漏 \texttt{opt.zero\_grad()} 导致梯度在每次反向传播时发生累加而训练发散。通过对照计算图导数传递流程，牢固掌握了“清空梯度 $\rightarrow$ 反向传播 $\rightarrow$ 参数更新”的标准三步法。
+
+% -------------------------- 四、版本控制与提交记录 --------------------------
+\section*{四、版本控制与提交记录}
+
+\contenthead{仓库链接}
+GitHub 仓库地址：\gitlink{https://github.com/zvdfgb/-_-.git}
+
+\contenthead{提交记录说明与截图}
+本周所有课上实验代码、课后练习脚本及实验报告文档均严格按照课程规范，使用 Git 进行分阶段、有针对性的多次颗粒度提交，严禁单次全量提交。提交历史记录截图如下。
+\screenshot{figures/github_commit_1.png}{GitHub 提交记录截图}
+
+\end{document}
