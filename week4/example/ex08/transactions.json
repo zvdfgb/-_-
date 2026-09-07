@@ -1,0 +1,7 @@
+[
+  {"dept": "AI", "amount": 1500},
+  {"dept": "Tool", "amount": 800},
+  {"dept": "AI", "amount": 2200},
+  {"dept": "Web", "amount": 950},
+  {"dept": "Tool", "amount": 1200}
+]
