@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/usr/bin/env bash}
+\PYG{n+nb}{set}\PYG{+w}{ }\PYGZhy{}e
+ruff\PYG{+w}{ }\PYGZhy{}\PYGZhy{}version\PYG{+w}{ }\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{+w}{ }pytest\PYG{+w}{ }\PYGZhy{}\PYGZhy{}version
+tar\PYG{+w}{ }\PYGZhy{}czf\PYG{+w}{ }release\PYGZus{}bundle.tar.gz\PYG{+w}{ }run\PYGZus{}pipeline.sh
+sha256sum\PYG{+w}{ }release\PYGZus{}bundle.tar.gz
+\end{MintedVerbatim}

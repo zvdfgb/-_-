@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+pytest\PYG{+w}{ }\PYGZhy{}\PYGZhy{}cov\PYG{o}{=}math\PYGZus{}tool\PYG{+w}{ }\PYGZhy{}\PYGZhy{}cov\PYGZhy{}report\PYG{o}{=}term\PYGZhy{}missing\PYG{+w}{ }test\PYGZus{}math\PYGZus{}tool.py
+\end{MintedVerbatim}

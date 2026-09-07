@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{.PHONY}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{all} \PYG{n}{clean}
+
+\PYG{n+nf}{all}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{report}.\PYG{n}{txt}
+
+\PYG{n+nf}{stats.txt}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{data}.\PYG{n}{csv} \PYG{n}{stats}.\PYG{n}{py}
+\PYG{err}{\PYGZca{}\PYGZca{}Ipython3}\PYG{+w}{ }\PYG{err}{stats.py}
+
+\PYG{n+nf}{report.txt}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{stats}.\PYG{n}{txt} \PYG{n}{report}.\PYG{n}{md} \PYG{n}{build\PYGZus{}report}.\PYG{n}{py}
+\PYG{err}{\PYGZca{}\PYGZca{}Ipython3}\PYG{+w}{ }\PYG{err}{build\PYGZus{}report.py}
+
+\PYG{n+nf}{clean}\PYG{o}{:}
+\PYG{err}{\PYGZca{}\PYGZca{}Irm}\PYG{+w}{ }\PYG{err}{\PYGZhy{}f}\PYG{+w}{ }\PYG{err}{stats.txt}\PYG{+w}{ }\PYG{err}{report.txt}
+\end{MintedVerbatim}

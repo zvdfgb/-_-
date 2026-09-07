@@ -1,0 +1,3 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+jq\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}group\PYGZus{}by(.dept) | map(\PYGZob{}department: .[0].dept, total\PYGZus{}budget: map(.amount) | add\PYGZcb{})\PYGZsq{}}\PYG{+w}{ }transactions.json
+\end{MintedVerbatim}

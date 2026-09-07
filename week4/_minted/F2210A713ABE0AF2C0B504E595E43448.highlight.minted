@@ -1,0 +1,7 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{sub} \PYG{o}{=} \PYG{n}{p}\PYG{o}{.}\PYG{n}{add\PYGZus{}subparsers}\PYG{p}{(}\PYG{n}{dest}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}cmd\PYGZdq{}}\PYG{p}{,} \PYG{n}{required}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{deploy\PYGZus{}p} \PYG{o}{=} \PYG{n}{sub}\PYG{o}{.}\PYG{n}{add\PYGZus{}parser}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}deploy\PYGZdq{}}\PYG{p}{,} \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}部署服务\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{deploy\PYGZus{}p}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}env\PYGZdq{}}\PYG{p}{,} \PYG{n}{choices}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}staging\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}prod\PYGZdq{}}\PYG{p}{],} \PYG{n}{required}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{backup\PYGZus{}p} \PYG{o}{=} \PYG{n}{sub}\PYG{o}{.}\PYG{n}{add\PYGZus{}parser}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}backup\PYGZdq{}}\PYG{p}{,} \PYG{n}{help}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}备份数据库\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{backup\PYGZus{}p}\PYG{o}{.}\PYG{n}{add\PYGZus{}argument}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}\PYGZhy{}\PYGZhy{}compress\PYGZdq{}}\PYG{p}{,} \PYG{n}{action}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}store\PYGZus{}true\PYGZdq{}}\PYG{p}{)}
+\end{MintedVerbatim}

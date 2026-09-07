@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{.PHONY}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{all} \PYG{n}{check} \PYG{n}{build} \PYG{n}{clean}
+\PYG{n+nf}{all}\PYG{o}{:}\PYG{+w}{ }\PYG{n}{check} \PYG{n}{build}
+\PYG{n+nf}{check}\PYG{o}{:}
+\PYG{err}{\PYGZca{}\PYGZca{}Ibash}\PYG{+w}{ }\PYG{err}{check.sh}
+\PYG{n+nf}{build}\PYG{o}{:}
+\PYG{err}{\PYGZca{}\PYGZca{}Ipython}\PYG{+w}{ }\PYG{err}{\PYGZhy{}m}\PYG{+w}{ }\PYG{err}{build}\PYG{+w}{ }\PYG{err}{\PYGZhy{}\PYGZhy{}wheel}
+\PYG{n+nf}{clean}\PYG{o}{:}
+\PYG{err}{\PYGZca{}\PYGZca{}Irm}\PYG{+w}{ }\PYG{err}{\PYGZhy{}rf}\PYG{+w}{ }\PYG{err}{dist}\PYG{+w}{ }\PYG{err}{build}\PYG{+w}{ }\PYG{err}{src/*.egg\PYGZhy{}info}\PYG{+w}{ }\PYG{err}{.pytest\PYGZus{}cache}\PYG{+w}{ }\PYG{err}{.ruff\PYGZus{}cache}
+\end{MintedVerbatim}

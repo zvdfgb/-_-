@@ -1,0 +1,13 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} pyproject.toml 中的质量门禁配置}
+\PYG{k}{[tool.ruff]}
+\PYG{n}{line\PYGZhy{}length}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{88}
+\PYG{n}{target\PYGZhy{}version}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}py310\PYGZdq{}}
+
+\PYG{k}{[tool.ruff.lint]}
+\PYG{n}{select}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}E\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}F\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}I\PYGZdq{}}\PYG{p}{]}
+
+\PYG{k}{[tool.pytest.ini\PYGZus{}options]}
+\PYG{n}{testpaths}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}tests\PYGZdq{}}\PYG{p}{]}
+\PYG{n}{pythonpath}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}src\PYGZdq{}}\PYG{p}{]}
+\end{MintedVerbatim}

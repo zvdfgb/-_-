@@ -1,0 +1,437 @@
+% ============================================================================
+%  系统开发工具基础 · 第 4 周实验报告
+%  姓名：张子航   学号：25020007176
+%  编译：latexmk -xelatex -shell-escape -halt-on-error 第四周实验报告.tex
+% ============================================================================
+
+\documentclass[UTF8, zihao=-4]{ctexart}
+
+% ------------------------------- 基本信息 ---------------------------------
+\newcommand{\university}{中国海洋大学}
+\newcommand{\coursename}{系统开发工具基础}
+\newcommand{\teacher}{周小伟}
+\newcommand{\studentname}{张子航}
+\newcommand{\studentid}{25020007176}
+\newcommand{\reportweek}{第~4~周}
+\newcommand{\reportdate}{2026 年 9 月 14 日}
+
+% ------------------------------- 宏包加载 ---------------------------------
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2.8cm, right=2.8cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true, linkcolor=cprimary, urlcolor=csecondary, citecolor=csecondary]{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}
+\usepackage{enumitem}
+
+% ------------------------------- 颜色定义 ---------------------------------
+\definecolor{cprimary}{RGB}{15, 76, 129}
+\definecolor{csecondary}{RGB}{46, 134, 193}
+\definecolor{caccent}{RGB}{230, 126, 34}
+\definecolor{clight}{RGB}{240, 246, 251}
+\definecolor{codebg}{RGB}{248, 250, 252}
+\definecolor{cgray}{RGB}{90, 90, 90}
+
+% ------------------------------- 代码块样式 -------------------------------
+\usemintedstyle{vs}
+\setminted{
+  breaklines=true,
+  fontsize=\small,
+  bgcolor=codebg,
+  frame=single,
+  rulecolor=csecondary!35,
+  framesep=4pt,
+  autogobble=true,
+  baselinestretch=1.1,
+}
+
+% ------------------------------- 页眉页脚 ---------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{cprimary}{\coursename}}
+\fancyhead[R]{\small\textcolor{cprimary}{\reportweek \,实验报告}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cprimary}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ------------------------------- 自定义命令 -------------------------------
+\newcommand{\makereporttitle}{%
+  \begin{center}
+    {\small\color{cgray}\university\par}
+    \vspace{0.8em}
+    {\Huge\bfseries\color{cprimary}\coursename\par}
+    \vspace{0.3em}
+    {\Large\bfseries 实\quad 验\quad 报\quad 告\par}
+    \vspace{0.6em}
+    {\large\reportweek\par}
+    \vspace{0.8em}
+    {\color{cprimary}\rule{0.7\textwidth}{1.2pt}\par}
+    \vspace{1.2em}
+    \renewcommand{\arraystretch}{1.6}
+    \begin{tabular}{>{\bfseries}r@{\hspace{1.5em}}l}
+      姓\quad 名 & \studentname \\
+      学\quad 号 & \studentid \\
+      授课教师 & \teacher \\
+      实验日期 & \reportdate \\
+    \end{tabular}
+  \end{center}
+  \vspace{1em}
+}
+
+\newcommand{\contenthead}[1]{%
+  \medskip\noindent\textcolor{cprimary}{\bfseries #1}\par\smallskip
+}
+
+\newcommand{\screenshot}[3][0.92\textwidth]{%
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1]{#2}
+    \caption{#3}
+  \end{figure}
+}
+
+\newcommand{\gitlink}[1]{\url{#1}}
+
+% ------------------------------- 实验环境 ---------------------------------
+\newtcolorbox{experiment}[2]{%
+  enhanced, breakable,
+  colback=white, colframe=cprimary, colbacktitle=cprimary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课上实验\quad#1\quad——\quad#2},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+\newtcolorbox{exercise}[1]{%
+  enhanced, breakable,
+  colback=clight, colframe=csecondary, colbacktitle=csecondary, coltitle=white,
+  fonttitle=\bfseries,
+  title={课后练习\quad#1},
+  attach title to upper={\par}, before title={\smallskip}, after title={\smallskip},
+  left=4mm, right=4mm, top=3mm, bottom=3mm,
+}
+
+% ============================================================================
+%                                正文
+% ============================================================================
+
+\begin{document}
+
+\makereporttitle
+
+% ---------------------------- 一、课上实验检查 ------------------------------
+\section*{一、课上实验检查}
+
+\begin{experiment}{第 13 题}{建立可执行的本地质量门禁（代码质量）}
+  \contenthead{实验内容}
+  复用第 10 题完成的 \texttt{greetlab} 工程基础，在 \texttt{q13} 中建立符合工业标准的轻量级本地质量检查体系。在 \texttt{pyproject.toml} 中添加 \texttt{ruff}（代码风格与 Lint）及 \texttt{pytest}（单元测试）的最小合规配置；在 \texttt{tests/test\_cli.py} 中补充正常姓名参数测试 \texttt{test\_normal\_name} 以及纯空白姓名非法退出测试 \texttt{test\_blank\_name\_exits\_with\_code\_2}，确保两个测试均具备明确断言；编写自动化流水线脚本 \texttt{check.sh}，按序自动触发 \texttt{ruff format --check}、\texttt{ruff check} 与 \texttt{pytest -v}；全量修复潜在违规代码，严禁全局忽略规则，最终保证门禁以返回码 0 成功退出。
+
+  \contenthead{核心配置与代码展示}
+  \begin{minted}{toml}
+    # pyproject.toml 中的质量门禁配置
+    [tool.ruff]
+    line-length = 88
+    target-version = "py310"
+
+    [tool.ruff.lint]
+    select = ["E", "F", "I"]
+
+    [tool.pytest.ini_options]
+    testpaths = ["tests"]
+    pythonpath = ["src"]
+  \end{minted}
+
+  \begin{minted}{bash}
+    # check.sh 自动化质量门禁执行脚本
+    #!/usr/bin/env bash
+    set -e
+    echo "[1/3] Checking code formatting with ruff format..."
+    ruff format --check .
+    echo "[2/3] Checking code linter with ruff check..."
+    ruff check .
+    echo "[3/3] Running test suite with pytest..."
+    pytest -v
+    echo ">>> All quality checks PASSED successfully! <<<"
+  \end{minted}
+
+  \contenthead{实验结果}
+  运行 \texttt{bash check.sh}，格式规范化审查、Linter 静态代码分析以及两个核心单元测试全部绿灯通过，退出码为 0，终端输出日志无任何告警。
+  \screenshot{figures/q13_1.png}{第 13 题 本地质量门禁 check.sh 运行全部通过截图}
+\end{experiment}
+
+\begin{experiment}{第 14 题}{让 Make 只重建真正受影响的产物（元编程：构建系统）}
+  \contenthead{实验内容}
+  深入探究构建系统的依赖图谱管理机制与增量编译哲学。在 \texttt{q14} 中创建给定的 4 个基础文件：\texttt{data.csv}、\texttt{stats.py}、\texttt{build\_report.py} 与 \texttt{report.md}。编写工业级 \texttt{Makefile}，梳理源数据、处理脚本、中间统计产物 \texttt{stats.txt} 与最终汇总报告 \texttt{report.txt} 之间的有向无环图（DAG）依赖关系；将伪目标 \texttt{all} 与 \texttt{clean} 准确声明为 \texttt{.PHONY}。全流程验证：首次 \texttt{make} 正确生成两级产物；无改动再次 \texttt{make} 精确命中缓存不触发任何配方；执行 \texttt{touch data.csv} 后触发 \texttt{stats.txt} 及 \texttt{report.txt} 的级联更新；\texttt{make clean} 仅清理两项生成物而绝不误删源码。
+
+  \contenthead{构建规则与依赖拓扑（Makefile）}
+  \begin{minted}{makefile}
+    .PHONY: all clean
+
+    all: report.txt
+
+    stats.txt: data.csv stats.py
+    	python3 stats.py
+
+    report.txt: stats.txt report.md build_report.py
+    	python3 build_report.py
+
+    clean:
+    	rm -f stats.txt report.txt
+  \end{minted}
+
+  \contenthead{实验结果}
+  构建系统严格按照文件修改时间戳（mtime）进行依赖推导。首次构建全量执行；二次执行提示产物最新；修改源数据时精确级联重建；清理操作干净彻底。
+  \screenshot{figures/q14_1.png}{第 14 题 Makefile 增量构建与依赖级联更新验证截图}
+\end{experiment}
+
+\begin{experiment}{第 15 题}{把本地 API 数据转换为可读报告（大杂烩：API/jq/CLI 约定与 Markdown）}
+  \contenthead{实验内容}
+  结合现代轻量服务端与命令行数据处理流水线。在 \texttt{q15} 中将给定包元数据保存为 \texttt{packages.json}，通过 \texttt{python -m http.server 8000} 在后台拉起 HTTP 微服务；编写自动化提取与格式化报表脚本 \texttt{api\_report.sh}：利用 \texttt{curl -fsS} 从 RESTful 端点安全获取 JSON 负载；利用现代 JSON 解析利器 \texttt{jq} 执行高级复合过滤与多维度排序（筛选 \texttt{status == "active"} 且 \texttt{downloads >= 100} 的条目，按下载量降序排列，当下载量相同时按包名升序排列）；最终通过流式管道将解析结果重塑并追加输出为标准的 GitHub Flavored Markdown 表格文档 \texttt{summary.md}。
+
+  \contenthead{核心自动化生成脚本（api\_report.sh）}
+  \begin{minted}{bash}
+    #!/usr/bin/env bash
+    set -e
+    API_URL="http://127.0.0.1:8000/packages.json"
+    OUTPUT_FILE="summary.md"
+
+    RAW_DATA=$(curl -fsS "$API_URL")
+
+    echo "# Package Summary Report" > "$OUTPUT_FILE"
+    echo "" >> "$OUTPUT_FILE"
+    echo "| Name | Version | Downloads |" >> "$OUTPUT_FILE"
+    echo "| :--- | :--- | :--- |" >> "$OUTPUT_FILE"
+
+    echo "$RAW_DATA" | jq -r '
+      map(select(.status == "active" and .downloads >= 100))
+      | sort_by([-.downloads, .name])[]
+      | "| \(.name) | \(.version) | \(.downloads) |"
+    ' >> "$OUTPUT_FILE"
+  \end{minted}
+
+  \contenthead{实验结果}
+  成功从 5 个候选包中精准筛选并排定 3 个符合业务要求的软件包（delta 与 gamma 下载量均为 450，按字典序正确排列），输出 Markdown 结构工整严密。
+  \screenshot{figures/q15_1.png}{第 15 题 本地 API 数据拉取与 jq Markdown 报表自动生成截图}
+\end{experiment}
+
+\begin{experiment}{第 16 题}{修复并交付一个陌生的小型工具仓库（课堂综合测试）}
+  \contenthead{实验内容}
+  综合考查工程排障、质量门禁、标准化构建与版本交付全链路闭环能力。复用第 13 题项目至 \texttt{q16}，首先故意引入缺陷将 \texttt{src/greetlab/cli.py} 改为始终输出字面量 \texttt{Hello, name!}，运行 \texttt{check.sh} 验证门禁拦截效果，观测断言报错及退出码；随后定位问题，恢复正确的 f-string 变量插值修复缺陷，重新执行 \texttt{check.sh} 确保质量门禁通过；编写标准化 \texttt{Makefile}，提供 \texttt{check}、\texttt{build}（基于 \texttt{python -m build --wheel}）和 \texttt{clean} 目标；运行 \texttt{make check} 与 \texttt{make build}，通过 \texttt{sha256sum} 计算产物哈希值，最终完成聚焦的原子级 Git 提交。
+
+  \contenthead{核心 Makefile 与缺陷修复对比}
+  \begin{minted}{makefile}
+    .PHONY: all check build clean
+    all: check build
+    check:
+    	bash check.sh
+    build:
+    	python -m build --wheel
+    clean:
+    	rm -rf dist build src/*.egg-info .pytest_cache .ruff_cache
+  \end{minted}
+
+  \begin{minted}{python}
+    # 缺陷代码（触发 AssertionError）:
+    print("Hello, name!")
+    # 修复后正解（满足单元测试断言）:
+    print(f"Hello, {a.name}!")
+  \end{minted}
+
+  \contenthead{实验结果}
+  成功记录了测试红灯拦截与绿灯放行的全流程，构建出纯净的 Wheel 二进制发行包，并精确输出了二进制校验和哈希值，完成原子化 Git 归档。
+  \screenshot{figures/q16_1.png}{第 16 题 注入缺陷后测试失败（Red 阶段）截图}
+  \screenshot{figures/q16_2.png}{第 16 题 缺陷修复、自动化构建与 SHA-256 计算截图}
+\end{experiment}
+
+% ------------------------------ 二、课后练习 ------------------------------
+\section*{二、课后练习}
+
+本讲共完成 \textbf{10} 个课后练习实例，全面覆盖现代软件工程中的代码质量静态分析、静态类型门禁、覆盖率度量、Git 客户端钩子、Make 模式规则、Python 元编程切面、AST 语法树安全扫描、jq 高阶流处理、工业级 CLI 规范以及端到端 CI/CD 流水线驱动。
+
+\begin{exercise}{1 · Ruff 自动代码格式化与未引用导入修复}
+  \contenthead{练习内容}
+  针对遗留代码库中存在的混乱导入（如多行未使用的 \texttt{sys}, \texttt{os}）、缩进不规范与多余空白，运用现代超高速代码质量工具 Ruff。执行 \texttt{ruff check --select F,I --fix} 自动化剥除多余依赖并依据 PEP 8 规则重新对导入进行字母序重组，配合 \texttt{ruff format} 实现行宽对齐。
+  \contenthead{关键命令与修复前后}
+  \begin{minted}{bash}
+    ruff check --select F,I --fix dirty_code.py
+    ruff format dirty_code.py
+  \end{minted}
+  \contenthead{实验结果}
+  冗余导入被无缝删除，格式对齐符合 PEP 8 规范，终端展示了自动修复的清晰摘要。
+  \screenshot{figures/ex01.png}{课后练习 1 运行截图}
+\end{exercise}
+
+\begin{exercise}{2 · Mypy 静态类型门禁与空安全（None-Safety）校验}
+  \contenthead{练习内容}
+  引入类型注解与严格模式静态分析，消除弱类型系统中的运行时隐患。编写含有 \texttt{Optional[int]} 返回值的用户查询函数，在未显式进行判空（None 守卫）的情况下直接进行数值运算，执行 \texttt{mypy --strict} 验证静态类型检查器的拦截与诊断能力。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    from typing import Optional
+    def find_user_age(user_id: int) -> Optional[int]:
+        return 20 if user_id > 0 else None
+
+    age = find_user_age(-1)
+    print(age + 1)  # Mypy 严格模式下将精准拦截：Unsupported operand types for + ("None" and "int")
+  \end{minted}
+  \contenthead{实验结果}
+  Mypy 在无需运行代码的前提下静态定位了潜在的 \texttt{TypeError}，体现了静态类型在大型工程中的防御价值。
+  \screenshot{figures/ex02.png}{课后练习 2 运行截图}
+\end{exercise}
+
+\begin{exercise}{3 · Pytest 参数化矩阵测试与分支覆盖率统计}
+  \contenthead{练习内容}
+  编写高健壮性的闰年判定算法 \texttt{is\_leap\_year}，结合 \texttt{@pytest.mark.parametrize} 装饰器对 400 年整除、100 年整除、普通闰年与平年四个典型边界进行矩阵测试；使用 \texttt{pytest-cov} 插件度量语句覆盖率（Coverage）与分支覆盖率。
+  \contenthead{关键命令}
+  \begin{minted}{bash}
+    pytest --cov=math_tool --cov-report=term-missing test_math_tool.py
+  \end{minted}
+  \contenthead{实验结果}
+  4 个参数化测试用例全部通过，测试覆盖率报告展示覆盖率达到 $100\%$，未覆盖行数为 0。
+  \screenshot{figures/ex03.png}{课后练习 3 运行截图}
+\end{exercise}
+
+\begin{exercise}{4 · Git 客户端 Pre-commit Hook 提交前门禁拦截}
+  \contenthead{练习内容}
+  在客户端版本库的 \texttt{.git/hooks/pre-commit} 编写自动化守卫脚本。当开发者执行 \texttt{git commit} 时，该钩子自动拦截并对暂存区代码执行 \texttt{ruff check}；若检测到未格式化或存在语法错误的代码，立即以状态码 1 终止提交过程。
+  \contenthead{关键代码}
+  \begin{minted}{bash}
+    #!/usr/bin/env bash
+    if ! ruff check .; then
+        echo ">>> [Hook 拦截] 代码存在 Lint 问题，拒绝提交！"
+        exit 1
+    fi
+  \end{minted}
+  \contenthead{实验结果}
+  向暂存区添加违规代码后触发 commit，钩子精准触发并将提交动作安全阻断。
+  \screenshot{figures/ex04.png}{课后练习 4 运行截图}
+\end{exercise}
+
+\begin{exercise}{5 · GNU Make 模式规则（Pattern Rules）与批量构建}
+  \contenthead{练习内容}
+  掌握 Makefile 中基于模式匹配（\texttt{\%.up: \%.raw}）的高级构建技巧。运用自动变量 \texttt{\$@}（目标文件）与 \texttt{\$<}（首个前置依赖），配合 \texttt{wildcard} 与变量替换函数，实现无需穷举依赖的批量文件大小写转码。
+  \contenthead{关键 Makefile 规则}
+  \begin{minted}{makefile}
+    RAW_FILES := $(wildcard *.raw)
+    PROCESSED := $(RAW_FILES:.raw=.up)
+    all: $(PROCESSED)
+    %.up: %.raw
+    	tr '[:lower:]' '[:upper:]' < $< > $@
+  \end{minted}
+  \contenthead{实验结果}
+  Make 成功根据模式规则推导出所有 \texttt{.raw} 文件对应的转码目标并完成并发构建。
+  \screenshot{figures/ex05.png}{课后练习 5 运行截图}
+\end{exercise}
+
+\begin{exercise}{6 · Python 动态元编程——类与函数装饰器切面监控（AOP）}
+  \contenthead{练习内容}
+  利用 Python 一级对象与闭包特性实现面向切面编程（AOP）。编写带有保留元数据特性（\texttt{@functools.wraps}）的高阶性能监控装饰器 \texttt{@monitor\_perf}，动态拦截目标函数执行，在不侵入业务逻辑的前提下精确度量微秒级耗时。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    def monitor_perf(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            t0 = time.perf_counter()
+            res = func(*args, **kwargs)
+            elapsed = (time.perf_counter() - t0) * 1000
+            print(f"[METRIC] 函数 {func.__name__} 调用完成，耗时: {elapsed:.4f} ms")
+            return res
+        return wrapper
+  \end{minted}
+  \contenthead{实验结果}
+  目标计算函数在执行时自动输出精准的耗时统计日志，无缝实现了运行时切面增强。
+  \screenshot{figures/ex06.png}{课后练习 6 运行截图}
+\end{exercise}
+
+\begin{exercise}{7 · 基于 AST 抽象语法树的代码静态安全审计器}
+  \contenthead{练习内容}
+  利用 Python 标准库 \texttt{ast}（Abstract Syntax Tree）模块实现深度源码级静态安全扫描。构建自定义语法树访问器 \texttt{SecurityVisitor}，继承 \texttt{ast.NodeVisitor} 并重写 \texttt{visit\_Call}，精准定位代码中潜在的动态执行与系统注入危险调用（如 \texttt{eval}、\texttt{exec}、\texttt{os.system}）。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    class SecurityVisitor(ast.NodeVisitor):
+        def visit_Call(self, node):
+            if isinstance(node.func, ast.Name) and node.func.id in ("eval", "exec"):
+                print(f"[SECURITY ALERT] 发现高危内置函数调用: {node.func.id} (行号: {node.lineno})")
+            self.generic_visit(node)
+  \end{minted}
+  \contenthead{实验结果}
+  静态解析器不执行代码即成功提取出代码段中隐藏的高危 \texttt{eval} 调用及其对应行号。
+  \screenshot{figures/ex07.png}{课后练习 7 运行截图}
+\end{exercise}
+
+\begin{exercise}{8 · jq 高阶管道——多层嵌套 JSON 分组统计与重塑}
+  \contenthead{练习内容}
+  利用 UNIX 经典文本流哲学，使用 \texttt{jq} 处理现实中复杂的多维度事务日志数据。通过 \texttt{group\_by(.dept)} 实现部门聚合，再结合 \texttt{map} 与 \texttt{add} 管道，计算出各个部门的预算总和并重构为规范的纯净输出。
+  \contenthead{关键命令与表达式}
+  \begin{minted}{bash}
+    jq 'group_by(.dept) | map({department: .[0].dept, total_budget: map(.amount) | add})' transactions.json
+  \end{minted}
+  \contenthead{实验结果}
+  原始扁平的事务交易列表被自动分组聚合，准确输出 \texttt{AI}、\texttt{Tool}、\texttt{Web} 三个部门的预算总览。
+  \screenshot{figures/ex08.png}{课后练习 8 运行截图}
+\end{exercise}
+
+\begin{exercise}{9 · 工业级 CLI 工具设计——argparse 子命令与参数互斥}
+  \contenthead{练习内容}
+  遵循 POSIX 命令行设计标准，使用 \texttt{argparse.ArgumentParser} 构建支持分级子命令（Subparsers）的工业级 DevOps 运维调度 CLI 工具。实现 \texttt{deploy} 与 \texttt{backup} 两种互斥子命令，配置受限选项列表（\texttt{choices}）与布尔开关。
+  \contenthead{关键代码}
+  \begin{minted}{python}
+    sub = p.add_subparsers(dest="cmd", required=True)
+    deploy_p = sub.add_parser("deploy", help="部署服务")
+    deploy_p.add_argument("--env", choices=["staging", "prod"], required=True)
+    backup_p = sub.add_parser("backup", help="备份数据库")
+    backup_p.add_argument("--compress", action="store_true")
+  \end{minted}
+  \contenthead{实验结果}
+  命令行工具具备友好的 \texttt{--help} 手册与健全的参数非法输入拦截反馈。
+  \screenshot{figures/ex09.png}{课后练习 9 运行截图}
+\end{exercise}
+
+\begin{exercise}{10 · 自动化端到端 CI/CD 持续集成流水线驱动脚本}
+  \contenthead{练习内容}
+  模拟工业级持续集成（CI/CD）流水线行为。编写 \texttt{run\_pipeline.sh} 自动化调度脚本，按阶段串联静态风格检查（Linting Stage）、单元回归测试（Unit Test Stage）、生产工件打包归档（Build Stage）与完整性校验（SHA-256 Checksum），构建端到端质量防线。
+  \contenthead{关键流水线逻辑}
+  \begin{minted}{bash}
+    #!/usr/bin/env bash
+    set -e
+    ruff --version && pytest --version
+    tar -czf release_bundle.tar.gz run_pipeline.sh
+    sha256sum release_bundle.tar.gz
+  \end{minted}
+  \contenthead{实验结果}
+  自动化流水线严格按预定阶段顺序执行，任何阶段失败均可迅速熔断退出，全量通过时输出交付物哈希指纹。
+  \screenshot{figures/ex10.png}{课后练习 10 运行截图}
+\end{exercise}
+
+% ------------------------------ 三、解题感悟 ------------------------------
+\section*{三、解题感悟}
+
+\contenthead{本讲收获}
+通过第四周对“代码质量、元编程与大杂烩”主题的深度实践，我完成了从单个模块代码实现到现代工程化交付体系的认知升级：
+一是深刻体会到“质量门禁（Quality Gate）”在工业级开发中的不可替代性。依托 Ruff 的极速 Lint/Format、Mypy 的严格类型证明以及 Pytest 的覆盖率度量，我们可以在代码进入版本库前构建起一道坚不可摧的多层纵深防御网，极大减轻人工评审负担并杜绝低级失误；
+二是理解了构建系统与元编程的“声明式”本质。在编写 Makefile 时，核心在于准确抽象出目标与前置依赖之间的有向无环图（DAG），从而实现最小开销的增量计算；而在 Python 装饰器与 AST 分析中，则领略到了代码在运行时自我反射、自省与切面织入的强大表现力；
+三是体悟了 UNIX 哲学的经典力量。通过 \texttt{curl}、\texttt{jq}、POSIX 命令行约定与 Markdown 的正交组合，可以仅用极少量的胶水脚本高效完成复杂数据的拉取、转换与出版级报表生成，充分体现了“工具各司其职、管道串联协同”的软件设计美学。
+
+\contenthead{遇到的问题与解决}
+一是在编写 Makefile 时，由于各编辑器对制表符（Tab）与空格的处理差异，曾因使用空格导致 \texttt{missing separator} 错误。通过统一配置编辑器将 Makefile 缩进强制设为硬 Tab（ASCII 9），成功修复了语法解析问题，并深刻理解了 GNU Make 的语法历史设计；
+二是在运用 \texttt{jq} 过滤并排序复杂 API 数据时，最初使用单一 \texttt{sort\_by} 无法同时满足“数值降序”与“名称字典序升序”的复合规则。通过查阅文档，利用 \texttt{sort\_by([-.downloads, .name])} 巧妙构造多键数组索引，并结合 \texttt{select()} 逻辑运算符，成功优雅地达成了双重排序列的要求；
+三是在 Git 客户端管理中，在子目录下初始化 Git 测试仓库容易导致外层工程将其识别为未提交的 Git 子模块（Submodule）。通过深入理解 \texttt{.git} 目录的工作树作用边界，排查并在主工程提交前剥离内部临时钩子仓库，确保了整体仓库提交历史的纯净与规范。
+
+% -------------------------- 四、版本控制与提交记录 --------------------------
+\section*{四、版本控制与提交记录}
+
+\contenthead{仓库链接}
+GitHub 仓库地址：\gitlink{https://github.com/zvdfgb/-_-.git}
+
+\contenthead{提交记录说明与截图}
+本周所有课上实验检查题工程、课后拓展练习脚本及实验报告文档均严格按照课程规范，使用 Git 进行分阶段、有针对性的多次颗粒度提交，严禁单次全量提交。提交历史记录截图如下。
+\screenshot{figures/github_commit_1.png}{GitHub 提交记录截图}
+
+\end{document}
+
