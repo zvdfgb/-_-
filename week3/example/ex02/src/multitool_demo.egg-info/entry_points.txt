@@ -1,0 +1,3 @@
+[console_scripts]
+mtool-add = multitool:tool_add
+mtool-ping = multitool:tool_ping
